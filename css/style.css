@@ -1,0 +1,7 @@
+body{
+    background-color: #f3e9f1;
+}
+.carousel.pointer-event {
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+}
