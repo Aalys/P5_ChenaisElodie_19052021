@@ -1,7 +1,11 @@
 body{
     background-color: #f3e9f1;
 }
-.carousel.pointer-event {
-    -ms-touch-action: pan-y;
-    touch-action: pan-y;
+
+.card{
+    box-shadow: 1px 5px 10px rgb(116, 116, 116);
+}
+.rowtwo{
+    margin-bottom: 55px;
+    margin-top: 55px;
 }
