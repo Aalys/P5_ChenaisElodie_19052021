@@ -16,3 +16,4 @@
       // Une erreur est survenue
   });
 
+  const article = { name: 'Bidule', price: 200 }
