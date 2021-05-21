@@ -1,6 +1,18 @@
-// get("http://localhost:3000/api/cameras").then
+
 // document.getElementById().innerHTML = 
-fetch("http://localhost:3000/api/cameras")
-  .then(function(res) {
-    console.log(res)
-  })
+
+// ====== Récupérer les produits depuis l'API ===== 
+
+  fetch("http://localhost:3000/api/cameras")
+    .then(function(res) {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then(function(value) {
+      console.log(value);
+    })
+    .catch(function(err) {
+      // Une erreur est survenue
+  });
+
