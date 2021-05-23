@@ -63,9 +63,19 @@ fetch("http://localhost:3000/api/cameras")
 
 // let products = [];
 // products.push(product1, product2);
+function loadProducts(callback) {
+  fetch("http://localhost:3000/api/cameras")
+    .then((response) => response.json())
+    .then(callback);
+}
 
+function createCardProduct(product) {
+  const productsElement = document.getElementById("rowtwo");
 
-async function showProducts() {
+  const newId = document.createElement("a");
+  newId.classList.add("btn");
+
+function showProducts() {
   fetch("http://localhost:3000/api/cameras")
   .then(response => response.json) // récupérer response au format json
   .then(data => {  // utiliser data -> iterer chaque élément de la liste 
