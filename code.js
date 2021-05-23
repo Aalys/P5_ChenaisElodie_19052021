@@ -30,9 +30,3 @@ fetch("http://localhost:3000/api/cameras")
     .catch(function(err) {
       // Une erreur est survenue
   });
-
-
-
-
-
-  const article = { name: 'Bidule', price: 200 }
