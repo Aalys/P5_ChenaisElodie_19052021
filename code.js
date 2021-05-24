@@ -98,4 +98,4 @@ function showProducts() {
   })
 }
 
-showProducts();
+showProducts();}
