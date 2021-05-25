@@ -32,6 +32,9 @@ fetch("http://localhost:3000/api/cameras")
   });
 
 
+// ================= TEST 1 - liste produits =================
+
+
 // let product = {
 //   lenses :["35mm 1.4","50mm 1.6"],
 //   _id:"5be1ed3f1c9d44000030b061",
@@ -63,39 +66,67 @@ fetch("http://localhost:3000/api/cameras")
 
 // let products = [];
 // products.push(product1, product2);
-function loadProducts(callback) {
-  fetch("http://localhost:3000/api/cameras")
-    .then((response) => response.json())
-    .then(callback);
-}
+// function loadProducts(callback) {
+//   fetch("http://localhost:3000/api/cameras")
+//     .then((response) => response.json())
+//     .then(callback);
+// }
 
-function createCardProduct(product) {
-  const productsElement = document.getElementById("rowtwo");
 
-  const newId = document.createElement("a");
-  newId.classList.add("btn");
+// ================ TEST 2 - liste produits ===============================
 
-function showProducts() {
-  fetch("http://localhost:3000/api/cameras")
-  .then(response => response.json) // récupérer response au format json
-  .then(data => {  // utiliser data -> iterer chaque élément de la liste 
-    console.log(1111);
-    let listOfProducts = "";
-    data.forEach(element => listOfProducts += `
-    <div class="text-center col-lg-4 col-md-6 mb-4">
-    <div class="card h-100">
-    <a href="#!"><img class="card-img-top" src=${element.imageURL} alt="..." /></a>
-    <div class="card-body">
-    <div class="cardTitle">${element.name}</div>
-    <div class="priceItem">${element.price}</div>
-    <p class="cardText">${element.description}</p>
-    </div>
-    <div class="card-footer"><button>View</button></div>
-    </div>
-    </div>
-    ` )
-    document.querySelector(".rowtwo").innerHTML = listOfProducts;
-  })
-}
+// function createCardProduct(product) {
+//   const productsElement = document.getElementById("rowtwo");
 
-showProducts();}
+//   const newId = document.createElement("a");
+//   newId.classList.add("btn");
+
+// function showProducts() {
+//   fetch("http://localhost:3000/api/cameras")
+//   .then(response => response.json) // récupérer response au format json
+//   .then(data => {  // utiliser data -> iterer chaque élément de la liste 
+//     console.log(1111);
+//     let listOfProducts = "";
+//     data.forEach(element => listOfProducts += `
+//     <div class="text-center col-lg-4 col-md-6 mb-4">
+//     <div class="card h-100">
+//     <a href="#!"><img class="card-img-top" src=${element.imageURL} alt="..." /></a>
+//     <div class="card-body">
+//     <div class="cardTitle">${element.name}</div>
+//     <div class="priceItem">${element.price}</div>
+//     <p class="cardText">${element.description}</p>
+//     </div>
+//     <div class="card-footer"><button>View</button></div>
+//     </div>
+//     </div>
+//     ` )
+//     document.querySelector(".rowtwo").innerHTML = listOfProducts;
+//   })
+// }
+
+// showProducts();}
+
+// ====================== TEST 3 - Liste produits ====================
+
+
+const listOfProducts = document.createElement("div")
+listOfProducts.id ="Test1"
+// Card
+
+  let newCard = document.getElementById("rowtwo");
+  newCard.classList.add("col-lg-4");
+  newCard.classList.add("mb-4");
+  newCard.classList.add("col-md-6");
+  
+  newCard.appendChild(listOfProducts);
+  newCard.textContent = "test";
+
+// 
+
+const inCard = document.createElement("div");
+
+  let card = document.getElementById("Test1");
+
+  card.appendChild(inCard);
+
+  card.textContent = "test2";
