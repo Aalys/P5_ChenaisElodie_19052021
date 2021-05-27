@@ -1,5 +1,5 @@
 body{
-    background-color: #f3e9f1;
+    background-color: #f2e8f0;
 }
 
 .card{
@@ -10,6 +10,17 @@ body{
     margin-top: 55px;
 }
 .des{
-    text-align: center;
-    margin-top: 180px;
+    margin-top: 120px;
+    font-family: 'Kaushan Script', cursive;
+    font-size: 25px;
+}
+.info{
+    background-color: #343a40; 
+    color: #ffffff; 
+    padding: 2em;
+    box-shadow: 3px 3px 10px #ac69a0;
+    border-radius: 4px;
+}
+.info p{
+    padding-top: 15px;
 }

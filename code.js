@@ -25,9 +25,10 @@ fetch("http://localhost:3000/api/cameras")
       }
     })
     .then(function(value) {
+      console.log(value);
       createCard(value);
-      }
-)
+    }
+    )
     .catch(function(err) {
       // Une erreur est survenue
   });
@@ -107,51 +108,100 @@ fetch("http://localhost:3000/api/cameras")
 
 // showProducts();}
 
+
+
 // ====================== TEST 3 - Liste produits ====================
 
 function createCard(value){
-  for (i = 0; i <= value.length; i++){
+  for (i = 0; i < value.length; i++){
     
-
     var listOfProducts = document.createElement("div") 
-
+    listOfProducts = document.getElementById("rowtwo");
+    listOfProducts.classList.add("my-5");
+    
     // Card extérieure 
-
-      let newCard = document.createElement("div") ;
-      let blocparent = document.getElementById("rowtwo");
-      newCard.classList.add("col-lg-4");
-      newCard.classList.add("mb-4");
-      newCard.classList.add("col-md-6");
-      
-      listOfProducts.appendChild(newCard);
-      blocparent.appendChild(listOfProducts);
-      
-      // Deuxième div design 
-      
-      let inCard = document.createElement("div");
-      inCard.classList.add("card");
-      inCard.classList.add("h-100");
-      
-      newCard.appendChild(inCard);
-      console.log(inCard);
-      // inCard.textContent = value[i].name;
-
-        // Element image dans inCard
-
-        let image = document.createElement("a");
-        image.classList.add("card-img-top");
-
-        inCard.appendChild(image);
-
-        // Element description dans inCard
-
-        let cardBody = document.createElement("div");
-        cardBody.classList.add("card-body");
-
-        inCard.appendChild(cardBody);
-
-          // Element dans cardBody 
-
-          
+    
+    let newCard = document.createElement("div") ;
+    newCard.classList.add("col-lg-4");
+    newCard.classList.add("col-md-6");
+    newCard.classList.add("mb-4");
+    
+    listOfProducts.appendChild(newCard);
+    
+    console.log(newCard);
+    
+    // Deuxième div design 
+    
+    let inCard = document.createElement("div");
+    inCard.classList.add("card");
+    inCard.classList.add("h-100");
+    
+    newCard.appendChild(inCard);
+    // inCard.textContent = value[i].name;
+    
+    // Element image dans inCard
+    
+    let addImage = document.createElement("a");
+    addImage.classList.add("img");
+    
+    
+    inCard.appendChild(addImage);
+    
+    // Element img dans addImage
+    
+    let image = document.createElement("img")
+    image.classList.add("card-img-top")
+    
+    image.src = value[i].imageUrl;
+    
+    addImage.appendChild(image);
+    
+    
+    // Element description dans inCard
+    
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+    
+    inCard.appendChild(cardBody);
+    
+    // Element button dans inCard
+    
+    let cardBottom = document.createElement("div");
+    cardBottom.classList.add("card-footer");
+    
+    inCard.appendChild(cardBottom);
+    
+    
+    // Element name dans cardBody 
+    
+    let cardTitle = document.createElement("div");
+    cardTitle.classList.add("cardTitle");
+    cardTitle.classList.add("text-center");
+    
+    cardTitle.innerText = value[i].name;
+    
+    cardBody.appendChild(cardTitle);
+    
+    // Element price dans cardBody
+    
+    let cardPrice = document.createElement("div");
+    cardPrice.classList.add("priceItem");
+    cardPrice.classList.add("my-4");
+    
+    cardPrice.innerText = value[i].price /100 + " €";
+    cardBody.appendChild(cardPrice);
+    
+    // Element description dans cardBody
+    
+    let cardText = document.createElement("div");
+    cardText.classList.add("cardtext");
+    
+    cardText.innerText = value[i].description;
+    
+    cardBody.appendChild(cardText);
+    
+    
   }
 }
+
+    
