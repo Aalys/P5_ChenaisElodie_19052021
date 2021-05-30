@@ -113,7 +113,7 @@ fetch("http://localhost:3000/api/cameras")
 // ====================== TEST 3 - Liste produits ====================
 
 function createCard(value){
-  for (i = 0; i < value.length; i++){
+  for (i = 0; i < value.length; i++){    //for ([initialisation]; [condition]; [expression_finale])
     
     var listOfProducts = document.createElement("div") 
     listOfProducts = document.getElementById("rowtwo");
@@ -200,8 +200,61 @@ function createCard(value){
     
     cardBody.appendChild(cardText);
     
-    
+  
   }
 }
 
+  // =============== formulaire =====================
+
+  const idForm = document.querySelector("#option_produit");
+
+  const envoyerPanier = document.querySelector("btn_envoyer");
+
+  // addEventListener = écouter le bouton & envoyer le panier
+  envoyerPanier.addEventListener("click", (event) => {
+    event.preventDefault()
+  
+    // Mettre le choix dans une variable
+    const choixForm = idForm.value;
+    console.log(choixForm);
+
+    // Récupération valeurs du formulaire
+
+    let optionProduit = {
+      name = idProduitSelect.name,
+      id = idProduitSelect._id,
+      desc = idProduitSelect.description,
+      price = idProduitSelect.price / 100,
+      option_produit = choixForm,
+      quantité : 1,
+      }
+
+    console.log(optionProduit);
+  });
+
+    // =============  localstorage ===================   
+    // Que des chaines de caractère dans le localstorage -> json -> json.stringify() pour convertir js vers json
+    // Json.parse pour convertir ceux qui sont dans le localstorage en JS
+
+
+    // Déclaration variable pour mettre keys et values qui sont dans le localstorage, voir si il y a quelque chose
+    
+    let produitInLocalStorage = JSON.parge(localStorage.getItem("produits"));
+    console.log(produitInLocalStorage);
+    
+    
+    // Si il y a déjà des produits dans le localstorage
+    if(produitInLocalStorage){     // vérifie que la clé n'existe pas déjà 
+      produitInLocalStorage.push(optionProduit)
+      localStorage.setItem("produit", JSON.stringify(produitInLocalStorage));
+      
+      console.log(produitInLocalStorage);
+     }else {
+     // Si il n'y a pas de produits dans le localstorage 
+      produitInLocalStorage = [];
+      produitInLocalStorage.push(optionProduit);
+      localStorage.setItem("produit", JSON.stringify(produitInLocalStorage));
+
+      console.log(produitInLocalStorage);
+    }
     
