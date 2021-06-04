@@ -1,20 +1,3 @@
-// const img = document.getElementById(img) 
-
-
-// const articles = async function() {
-  //   try {
-    //     let response = await fetch("http://localhost:3000/api/cameras") 
-    //     if (response.ok) {
-      //       let data = await response.json() // await attendre la résolution de la promesse
-//         console.log(data)
-//     } else {
-  //       console.error('Retour du serveur :', response.status)
-  //     }
-  //   } catch (e) {  //Capture les erreurs globalement 
-  //     console.log(e)
-  //   }
-  // }
-  
 
   // ====== Récupérer les produits depuis l'API ===== 
   
@@ -32,6 +15,7 @@ fetch("http://localhost:3000/api/cameras")
     .catch(function(err) {
       // Une erreur est survenue
   });
+
 
 
 // ================= TEST 1 - liste produits =================
@@ -112,9 +96,12 @@ fetch("http://localhost:3000/api/cameras")
 
 // ====================== TEST 3 - Liste produits ====================
 
+
 function createCard(value){
   for (i = 0; i < value.length; i++){    //for ([initialisation]; [condition]; [expression_finale])
     
+    let id = value[i]._id;
+
     var listOfProducts = document.createElement("div") 
     listOfProducts = document.getElementById("rowtwo");
     listOfProducts.classList.add("my-5");
@@ -122,22 +109,30 @@ function createCard(value){
     // Card extérieure 
     
     let newCard = document.createElement("div") ;
-    newCard.classList.add("col-lg-4");
-    newCard.classList.add("col-md-6");
-    newCard.classList.add("mb-4");
-    
+    newCard.classList.add("newCard","col-lg-4", "col-md-6", "mb-4");
+
     listOfProducts.appendChild(newCard);
     
     console.log(newCard);
+
+    // // Bloc id cachée
+
+    // let idCard = document.createElement("input");
+
+    // idCard.setAttribute("type", "hidden");
+    // idCard.classList.add("idCard");
+
+    // idCard.value = id;
+
+    // newCard.appendChild(idCard);
+    // console.log(idCard);
     
     // Deuxième div design 
     
     let inCard = document.createElement("div");
-    inCard.classList.add("card");
-    inCard.classList.add("h-100");
+    inCard.classList.add("card","h-100");
     
     newCard.appendChild(inCard);
-    // inCard.textContent = value[i].name;
     
     // Element image dans inCard
     
@@ -150,7 +145,7 @@ function createCard(value){
     // Element img dans addImage
     
     let image = document.createElement("img")
-    image.classList.add("card-img-top")
+    image.classList.add("card-img-top");
     
     image.src = value[i].imageUrl;
     
@@ -167,94 +162,58 @@ function createCard(value){
     // Element button dans inCard
     
     let cardBottom = document.createElement("div");
-    cardBottom.classList.add("card-footer");
+    cardBottom.classList.add("card-footer", "d-flex", "justify-content-center");
     
     inCard.appendChild(cardBottom);
-    
+
+      // lien button dans cardBottom
+      
+      let linkBtnCard = document.createElement("a");
+      cardBottom.classList.add("linkBtnCard");
+      
+      linkBtnCard.href = `../pages/produit.html?id=${id}`;
+
+      cardBottom.appendChild(linkBtnCard);
+
+        // Button dans linkbtnCard dans cardBottom
+
+        let btnCard = document.createElement("button");
+        btnCard.classList.add("btnCard","btn");
+
+        btnCard.innerText = "Plus de détails";
+
+        linkBtnCard.appendChild(btnCard);
     
     // Element name dans cardBody 
     
     let cardTitle = document.createElement("div");
-    cardTitle.classList.add("cardTitle");
-    cardTitle.classList.add("text-center");
+    cardTitle.classList.add("cardTitle","text-center");
     
     cardTitle.innerText = value[i].name;
     
     cardBody.appendChild(cardTitle);
     
-    // Element price dans cardBody
-    
-    let cardPrice = document.createElement("div");
-    cardPrice.classList.add("priceItem");
-    cardPrice.classList.add("my-4");
-    
-    cardPrice.innerText = value[i].price /100 + " €";
-    cardBody.appendChild(cardPrice);
-    
     // Element description dans cardBody
     
     let cardText = document.createElement("div");
-    cardText.classList.add("cardtext");
+    cardText.classList.add("cardtext", "my-4");
     
     cardText.innerText = value[i].description;
     
     cardBody.appendChild(cardText);
+    // Element price dans cardBody
     
-  
+    let cardPrice = document.createElement("div");
+    cardPrice.classList.add("priceItem");
+    
+    cardPrice.innerText = value[i].price /100 + " €";
+
+    cardBody.appendChild(cardPrice);
+
+
+    // btnCard.addEventListener('click', function(){
+    //   var urlProduit = window.location
+    // });
   }
 }
 
-  // =============== formulaire =====================
-
-  const idForm = document.querySelector("#option_produit");
-
-  const envoyerPanier = document.querySelector("btn_envoyer");
-
-  // addEventListener = écouter le bouton & envoyer le panier
-  envoyerPanier.addEventListener("click", (event) => {
-    event.preventDefault()
-  
-    // Mettre le choix dans une variable
-    const choixForm = idForm.value;
-    console.log(choixForm);
-
-    // Récupération valeurs du formulaire
-
-    let optionProduit = {
-      name = idProduitSelect.name,
-      id = idProduitSelect._id,
-      desc = idProduitSelect.description,
-      price = idProduitSelect.price / 100,
-      option_produit = choixForm,
-      quantité : 1,
-      }
-
-    console.log(optionProduit);
-  });
-
-    // =============  localstorage ===================   
-    // Que des chaines de caractère dans le localstorage -> json -> json.stringify() pour convertir js vers json
-    // Json.parse pour convertir ceux qui sont dans le localstorage en JS
-
-
-    // Déclaration variable pour mettre keys et values qui sont dans le localstorage, voir si il y a quelque chose
-    
-    let produitInLocalStorage = JSON.parge(localStorage.getItem("produits"));
-    console.log(produitInLocalStorage);
-    
-    
-    // Si il y a déjà des produits dans le localstorage
-    if(produitInLocalStorage){     // vérifie que la clé n'existe pas déjà 
-      produitInLocalStorage.push(optionProduit)
-      localStorage.setItem("produit", JSON.stringify(produitInLocalStorage));
-      
-      console.log(produitInLocalStorage);
-     }else {
-     // Si il n'y a pas de produits dans le localstorage 
-      produitInLocalStorage = [];
-      produitInLocalStorage.push(optionProduit);
-      localStorage.setItem("produit", JSON.stringify(produitInLocalStorage));
-
-      console.log(produitInLocalStorage);
-    }
-    
