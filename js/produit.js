@@ -118,16 +118,20 @@ const getCameras = async function(){
                 
                 formDiv.appendChild(select);
 
-                // Btn dans formDiv
+                // Btn du panier dans formDiv
                 
-                let cameraBtn = document.createElement("button");
-                cameraBtn.classList.add("btnCard","btn", "flex-shrink-0", "my-4");
+                let addCam = document.createElement("button");
+                addCam.classList.add("btn_envoyer", "btnCard","btn", "flex-shrink-0", "my-4");
 
-                cameraBtn.innerText = "Ajouter au panier";
+                addCam.type = 'submit';
+                addCam.name = 'add';
+                addCam.id = 'submit';
 
-                divOption.appendChild(cameraBtn);
+                addCam.innerText = "Ajouter au panier";
 
-        
+                divOption.appendChild(addCam);
+
+
         // récupération des données dans lenses
 
         let lenses = value.lenses;
@@ -141,63 +145,76 @@ const getCameras = async function(){
 
             select.appendChild(selectOption);
         }
-    } else {
-        console.error('Retour du serveur : ', response.status);
-        alert('Erreur rencontrée : ' + response.status);
-    } 
+
+
+        // addEventListener = écouter le bouton & envoyer le panier
+
+        addCam.addEventListener("click", function(e) {
+            e.preventDefault();
+           
+            // const idForm = document.querySelector("#option_produit");
+            
+            // const envoyerPanier = document.querySelector("btn_envoyer");
+            
+            //   // Mettre le choix dans une variable
+            //   const choixForm = idForm.value;
+            //   console.log(choixForm);
+       
+              // Récupération valeurs du formulaire
+
+            let optionProduit = {
+                camName : value.name,
+                camId : value._id,
+                camDesc : value.description,
+                camPrice : value.price / 100,
+                camLenses: select.value,
+                quantité : 1,
+                };
+
+        console.log(optionProduit);
+
+        // =============  localstorage ===================   
+        // Que des chaines de caractère dans le localstorage -> json -> json.stringify() pour convertir js vers json
+        // Json.parse pour convertir ceux qui sont dans le localstorage en JS 
+                
+        // Déclaration variable pour mettre keys et values qui sont dans le localstorage, voir si il y a quelque chose
+        
+        let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
+        console.log(produitInLocalStorage);
+        
+        let camLenses = select.value;
+        // Si il y a déjà des produits dans le localstorage
+        if(produitInLocalStorage){     // vérifie que la clé n'existe pas déjà 
+          produitInLocalStorage.push(optionProduit);
+          localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
+          
+          console.log(produitInLocalStorage);
+
+            if (window.confirm(select.name + " " + camLenses + ' a bien été ajouté. Souhaitez vous aller à votre panier ?')) { 
+                window.location.href = "panier.html";
+            } else {
+                window.location.href = "../index.html";
+        }
+         }else {
+         // Si il n'y a pas de produits dans le localstorage 
+          produitInLocalStorage = [];
+          produitInLocalStorage.push(optionProduit);
+          localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
+      
+          console.log(produitInLocalStorage);
+
+            if (window.confirm(select.name + " " + camLenses + ' a bien été ajouté. Souhaitez vous aller à votre panier ?')) { 
+                window.location.href = "panier.html";
+            } else {
+                window.location.href = "../index.html";
+            }
+         }
+        });
+        } else {
+            console.error('Retour du serveur : ', response.status);
+            alert('Erreur rencontrée : ' + response.status);
+        } 
 };
 // Appel de la fonction
 getCameras();
 
-// const idForm = document.querySelector("#option_produit");
-
-// const envoyerPanier = document.querySelector("btn_envoyer");
-
-// // addEventListener = écouter le bouton & envoyer le panier
-//      envoyerPanier.addEventListener("click", function(e) => {
-//      e.preventDefault()
-
-//   // Mettre le choix dans une variable
-//   const choixForm = idForm.value;
-//   console.log(choixForm);
-
-//   // Récupération valeurs du formulaire
-
-//   let optionProduit = {
-//     name = value.name,
-//     id = value._id,
-//     desc = value.description,
-//     price = value.price / 100,
-//     option_produit = choixForm,
-//     quantité : 1,
-//     }
-
-//   console.log(optionProduit);
-// });
-
-//   =============  localstorage ===================   
-//   Que des chaines de caractère dans le localstorage -> json -> json.stringify() pour convertir js vers json
-//   Json.parse pour convertir ceux qui sont dans le localstorage en JS
-
-
-//   Déclaration variable pour mettre keys et values qui sont dans le localstorage, voir si il y a quelque chose
-  
-//   let produitInLocalStorage = JSON.parse(localStorage.getItem("produits"));
-//   console.log(produitInLocalStorage);
-  
-  
-//   // Si il y a déjà des produits dans le localstorage
-//   if(produitInLocalStorage){     // vérifie que la clé n'existe pas déjà 
-//     produitInLocalStorage.push(optionProduit)
-//     localStorage.setItem("produit", JSON.stringify(produitInLocalStorage));
-    
-//     console.log(produitInLocalStorage);
-//    }else {
-//    // Si il n'y a pas de produits dans le localstorage 
-//     produitInLocalStorage = [];
-//     produitInLocalStorage.push(optionProduit);
-//     localStorage.setItem("produit", JSON.stringify(produitInLocalStorage));
-
-//     console.log(produitInLocalStorage);
-//   }
-  
