@@ -1,20 +1,3 @@
-// const img = document.getElementById(img) 
-
-
-// const articles = async function() {
-  //   try {
-    //     let response = await fetch("http://localhost:3000/api/cameras") 
-    //     if (response.ok) {
-      //       let data = await response.json() // await attendre la résolution de la promesse
-//         console.log(data)
-//     } else {
-  //       console.error('Retour du serveur :', response.status)
-  //     }
-  //   } catch (e) {  //Capture les erreurs globalement 
-  //     console.log(e)
-  //   }
-  // }
-  
 
   // ====== Récupérer les produits depuis l'API ===== 
   
@@ -112,32 +95,47 @@ fetch("http://localhost:3000/api/cameras")
 
 // ====================== Liste produits ====================
 
+
 function createCard(value){
+<<<<<<< HEAD:code.js
   for (i = 0; i < value.length; i++){ // valeur initiale, condition, incrémentation 
+=======
+  for (i = 0; i < value.length; i++){    //for ([initialisation]; [condition]; [expression_finale])
+>>>>>>> dd864af727d2f4c83e968f1d17db5f3301e5db93:js/code.js
     
-    var listOfProducts = document.createElement("div") 
+    let id = value[i]._id;
+
+    var listOfProducts = document.createElement("div"); 
     listOfProducts = document.getElementById("rowtwo");
     listOfProducts.classList.add("my-5");
     
     // Card extérieure 
     
-    let newCard = document.createElement("div") ;
-    newCard.classList.add("col-lg-4");
-    newCard.classList.add("col-md-6");
-    newCard.classList.add("mb-4");
-    
+    let newCard = document.createElement("div");
+    newCard.classList.add("newCard","col-lg-4", "col-md-6", "mb-4",);
+
     listOfProducts.appendChild(newCard);
     
     console.log(newCard);
+
+    // // Bloc id cachée
+
+    // let idCard = document.createElement("input");
+
+    // idCard.setAttribute("type", "hidden");
+    // idCard.classList.add("idCard");
+
+    // idCard.value = id;
+
+    // newCard.appendChild(idCard);
+    // console.log(idCard);
     
     // Deuxième div design 
     
     let inCard = document.createElement("div");
-    inCard.classList.add("card");
-    inCard.classList.add("h-100");
+    inCard.classList.add("card","h-100");
     
     newCard.appendChild(inCard);
-    // inCard.textContent = value[i].name;
     
     // Element image dans inCard
     
@@ -150,7 +148,7 @@ function createCard(value){
     // Element img dans addImage
     
     let image = document.createElement("img")
-    image.classList.add("card-img-top")
+    image.classList.add("card-img-top");
     
     image.src = value[i].imageUrl;
     
@@ -167,38 +165,46 @@ function createCard(value){
     // Element button dans inCard
     
     let cardBottom = document.createElement("div");
-    cardBottom.classList.add("card-footer");
+    cardBottom.classList.add("card-footer", "d-flex", "justify-content-center");
     
     inCard.appendChild(cardBottom);
-    
+
+      // lien button dans cardBottom
+      
+      let linkBtnCard = document.createElement("a");
+      cardBottom.classList.add("linkBtnCard");
+      
+      linkBtnCard.href = `../pages/produit.html?id=${id}`;
+
+      cardBottom.appendChild(linkBtnCard);
+
+        // Button dans linkbtnCard dans cardBottom
+
+        let btnCard = document.createElement("button");
+        btnCard.classList.add("btnCard","btn");
+
+        btnCard.innerText = "Plus de détails";
+
+        linkBtnCard.appendChild(btnCard);
     
     // Element name dans cardBody 
     
     let cardTitle = document.createElement("div");
-    cardTitle.classList.add("cardTitle");
-    cardTitle.classList.add("text-center");
+    cardTitle.classList.add("cardTitle","text-center");
     
     cardTitle.innerText = value[i].name;
     
     cardBody.appendChild(cardTitle);
     
-    // Element price dans cardBody
-    
-    let cardPrice = document.createElement("div");
-    cardPrice.classList.add("priceItem");
-    cardPrice.classList.add("my-4");
-    
-    cardPrice.innerText = value[i].price /100 + " €";
-    cardBody.appendChild(cardPrice);
-    
     // Element description dans cardBody
     
     let cardText = document.createElement("div");
-    cardText.classList.add("cardtext");
+    cardText.classList.add("cardtext", "my-4");
     
     cardText.innerText = value[i].description;
     
     cardBody.appendChild(cardText);
+<<<<<<< HEAD:code.js
   }
 }
 
@@ -217,3 +223,21 @@ function afficheForm(){
   divParent.appendChild(form)
 }
     
+=======
+    // Element price dans cardBody
+    
+    let cardPrice = document.createElement("div");
+    cardPrice.classList.add("priceItem");
+    
+    cardPrice.innerText = value[i].price /100 + " €";
+
+    cardBody.appendChild(cardPrice);
+
+
+    // btnCard.addEventListener('click', function(){
+    //   var urlProduit = window.location
+    // });
+  }
+}
+
+>>>>>>> dd864af727d2f4c83e968f1d17db5f3301e5db93:js/code.js
