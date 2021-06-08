@@ -102,13 +102,13 @@ function createCard(value){
     
     let id = value[i]._id;
 
-    var listOfProducts = document.createElement("div") 
+    var listOfProducts = document.createElement("div"); 
     listOfProducts = document.getElementById("rowtwo");
     listOfProducts.classList.add("my-5");
     
     // Card extérieure 
     
-    let newCard = document.createElement("div") ;
+    let newCard = document.createElement("div");
     newCard.classList.add("newCard","col-lg-4", "col-md-6", "mb-4");
 
     listOfProducts.appendChild(newCard);
