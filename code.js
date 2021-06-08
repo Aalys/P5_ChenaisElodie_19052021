@@ -110,10 +110,10 @@ fetch("http://localhost:3000/api/cameras")
 
 
 
-// ====================== TEST 3 - Liste produits ====================
+// ====================== Liste produits ====================
 
 function createCard(value){
-  for (i = 0; i < value.length; i++){
+  for (i = 0; i < value.length; i++){ // valeur initiale, condition, incrémentation 
     
     var listOfProducts = document.createElement("div") 
     listOfProducts = document.getElementById("rowtwo");
@@ -199,9 +199,21 @@ function createCard(value){
     cardText.innerText = value[i].description;
     
     cardBody.appendChild(cardText);
-    
-    
   }
 }
 
+// ================  Formulaire page panier =========== 
+
+
+function afficheForm(){
+ 
+ 
+  var form = document.createElement(form);
+      form.method="post";
+      form.action="index.asp?function=COUPONCODE";
+      form.name="couponcode";
+
+  var divParent = document.getElementById("divParent");
+  divParent.appendChild(form)
+}
     
