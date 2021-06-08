@@ -17,7 +17,6 @@ fetch("http://localhost:3000/api/cameras")
   });
 
 
-
 // ================= TEST 1 - liste produits =================
 
 
@@ -109,7 +108,7 @@ function createCard(value){
     // Card extérieure 
     
     let newCard = document.createElement("div");
-    newCard.classList.add("newCard","col-lg-4", "col-md-6", "mb-4");
+    newCard.classList.add("newCard","col-lg-4", "col-md-6", "mb-4",);
 
     listOfProducts.appendChild(newCard);
     
