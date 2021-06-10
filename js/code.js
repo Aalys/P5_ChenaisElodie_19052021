@@ -72,18 +72,18 @@ fetch("http://localhost:3000/api/cameras")
 //   .then(data => {  // utiliser data -> iterer chaque élément de la liste 
 //     console.log(1111);
 //     let listOfProducts = "";
-//     data.forEach(element => listOfProducts += `
-  //     <div class="text-center col-lg-4 col-md-6 mb-4">
-  //     <div class="card h-100">
-  //     <a href="#!"><img class="card-img-top" src=${element.imageURL} alt="..." /></a>
-  //     <div class="card-body">
-  //     <div class="cardTitle">${element.name}</div>
-  //     <div class="priceItem">${element.price}</div>
-  //     <p class="cardText">${element.description}</p>
-  //     </div>
-  //     <div class="card-footer"><button>View</button></div>
-  //     </div>
-  //     </div>
+//     data.forEach(valuet => listOfProducts += `
+//       <div class="text-center col-lg-4 col-md-6 mb-4">
+//       <div class="card h-100">
+//       <a href="#!"><img class="card-img-top" src=${value.imageURL} alt="..." /></a>
+//       <div class="card-body">
+//       <div class="cardTitle">${value.name}</div>
+//       <div class="priceItem">${value.price}</div>
+//       <p class="cardText">${value.description}</p>
+//       </div>
+//       <div class="card-footer"><button>View</button></div>
+//       </div>
+//       </div>
 //     ` )
 //     document.querySelector(".rowtwo").innerHTML = listOfProducts;
 //   })
