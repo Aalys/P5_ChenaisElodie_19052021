@@ -1,19 +1,21 @@
+// extraire id
+
 const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const id = urlParams.get('id');
+const urlParams = new URLSearchParams(queryString); // retourne la première valeur associée à id 
+const id = urlParams.get('id');    
 console.log(id);
 
 
 // =============== formulaire =====================
 
-const getCameras = async function(){
+let getCameras = async function(){
     let response = await fetch('http://localhost:3000/api/cameras/' + id);
     if (response.ok) {
         let value = await response.json();
         console.log(value);
 
   
-    var camerasDivInfo = document.createElement("div");    
+    let camerasDivInfo = document.createElement("div");    
     camerasDivInfo = document.getElementById("container_article");  // relié à ma div de la page produit
     camerasDivInfo.classList.add("py-5");
 
@@ -180,7 +182,6 @@ const getCameras = async function(){
         // Déclaration variable pour mettre keys et values qui sont dans le localstorage, voir si il y a quelque chose
         
         let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
-        console.log(produitInLocalStorage);
         
         let camLenses = select.value;
         // Si il y a déjà des produits dans le localstorage
@@ -203,11 +204,11 @@ const getCameras = async function(){
       
           console.log(produitInLocalStorage);
 
-            if (window.confirm(select.name + " " + camLenses + ' a bien été ajouté. Souhaitez vous aller à votre panier ?')) { 
-                window.location.href = "panier.html";
-            } else {
-                window.location.href = "../index.html";
-            }
+            // if (window.confirm(select.name + " " + camLenses + ' a bien été ajouté. Souhaitez vous aller à votre panier ?')) { 
+            //     window.location.href = "panier.html";
+            // } else {
+            //     window.location.href = "../index.html";
+            // }
          }
         });
         } else {
