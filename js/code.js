@@ -97,11 +97,7 @@ fetch("http://localhost:3000/api/cameras")
 
 
 function createCard(value){
-<<<<<<< HEAD:code.js
   for (i = 0; i < value.length; i++){ // valeur initiale, condition, incrémentation 
-=======
-  for (i = 0; i < value.length; i++){    //for ([initialisation]; [condition]; [expression_finale])
->>>>>>> dd864af727d2f4c83e968f1d17db5f3301e5db93:js/code.js
     
     let id = value[i]._id;
 
@@ -204,40 +200,21 @@ function createCard(value){
     cardText.innerText = value[i].description;
     
     cardBody.appendChild(cardText);
-<<<<<<< HEAD:code.js
   }
 }
 
 // ================  Formulaire page panier =========== 
 
 
-function afficheForm(){
+// function afficheForm(){
  
  
-  var form = document.createElement(form);
-      form.method="post";
-      form.action="index.asp?function=COUPONCODE";
-      form.name="couponcode";
+//   var form = document.createElement(form);
+//       form.method="post";
+//       form.action="index.asp?function=COUPONCODE";
+//       form.name="couponcode";
 
-  var divParent = document.getElementById("divParent");
-  divParent.appendChild(form)
-}
+//   var divParent = document.getElementById("divParent");
+//   divParent.appendChild(form)
+// }
     
-=======
-    // Element price dans cardBody
-    
-    let cardPrice = document.createElement("div");
-    cardPrice.classList.add("priceItem");
-    
-    cardPrice.innerText = value[i].price /100 + " €";
-
-    cardBody.appendChild(cardPrice);
-
-
-    // btnCard.addEventListener('click', function(){
-    //   var urlProduit = window.location
-    // });
-  }
-}
-
->>>>>>> dd864af727d2f4c83e968f1d17db5f3301e5db93:js/code.js
