@@ -1,4 +1,6 @@
-    let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
+   // récpère localstorage de la page produit.js
+   
+   let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
     console.log(produitInLocalStorage);
     
    // ======== Formulaire + expression régulière ========== //
@@ -6,34 +8,34 @@
     
     let panierCard = document.createElement("div");
     panierCard = document.getElementById("container_panier")
-    panierCard.classList.add("py-5", "container");
+    panierCard.classList.add("my-5", "container");
     console.log(panierCard);
 
 
 
          //création du formulaire de commande
     let form = document.createElement("form");
-    form.classList.add("contact_form", "container", "card", "col-8");
+    form.classList.add("contact_form", "container", "card");
 
     panierCard.appendChild(form);
 
-    let camH4 = document.createElement('h4');
-    camH4.innerText = "Pour valider votre commande, merci de remplir ce formulaire : ";
+        let camH4 = document.createElement('h4');
+        camH4.innerText = "Pour valider votre commande, merci de remplir ce formulaire : ";
 
-    form.appendChild(camH4);
+        form.appendChild(camH4);
 
     // création fonctions de validité prénom, nom, ville
-    function isValid(value) {
+    function validation(value) {
         return /^[A-Z-a-z\s]{3,40}$/.test(value);
     };
 
     // création fonctions de validité adresse
-    function validAddress(value) {
+    function validationAddresse(value) {
         return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value)
     };
 
     // création fonctions de validité mail
-    function validMail(value){
+    function validationMail(value){
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
     };
 
@@ -59,7 +61,7 @@
 
     // Vérification de la validité du prénom
     firstName.addEventListener("change", function (event) {
-        if (isValid(firstName.value)) {
+        if (validation(firstName.value)) {
         } else {
             alert( "Aucun chiffre ou symbole n'est autorisé.")
             event.preventDefault()
@@ -88,7 +90,7 @@
 
     // Vérification de la validité du nom
     lastName.addEventListener("change", function (event) {
-        if (isValid(lastName.value)) {
+        if (validation(lastName.value)) {
         } else {
             alert("Aucun chiffre ou symbole n'est autorisé.")
             event.preventDefault()
@@ -117,7 +119,7 @@
 
     // Vérification de la validité de l'adresse
     address.addEventListener("change", function (event) {
-        if (validAddress(address.value)){
+        if (validationAddresse(address.value)){
         } else {
             event.preventDefault()
             alert("Aucun symbole n'est autorisé.");
@@ -147,7 +149,7 @@
 
     // Vérification de la validité de la ville
     city.addEventListener("change", function (event) {
-        if (isValid(city.value)) {
+        if (validation(city.value)) {
         } else {
             alert("Aucun chiffre ou symbole n'est autorisé.")
             event.preventDefault()
@@ -161,9 +163,9 @@
 
     form.appendChild(divMail);
 
-    let labelMail = document.createElement('label');
+    let labelMail = document.createElement("label");
     labelMail.setAttribute('for', 'email');
-    labelMail.textContent = "Votre adresse mail : ";
+    labelMail.innerText = "Votre adresse mail : ";
 
     divMail.appendChild(labelMail);
 
@@ -177,14 +179,17 @@
 
     // Vérification de la validité du mail
     mail.addEventListener("change", function (event) {
-        if (validMail(mail.value)){
+        if (validationMail(mail.value)){
         } else {
             event.preventDefault()
             alert("Veuillez saisir une adresse mail valide (exemple : prenom.nom@mail.com).");
         }
     });
 
+
+    // ======================================================
     // =======   Afficher les produits dans le panier ======= // 
+    // ======================================================
 
     
     // Si le panier est vide
@@ -323,71 +328,137 @@
 
                                                 cartOption.appendChild(itemOption);
 
-                            // div cartTotal dans panierListContainer
+                        // div cartTotal dans panierListContainer
 
-                            let cartTotal = document.createElement("div");
-                            cartTotal.classList.add("order_total");
+                        let cartTotal = document.createElement("div");
+                        cartTotal.classList.add("order_total");
+                        // cartTotal.id = i++;
 
-                            panierListContainer.appendChild(cartTotal);
+                        panierListContainer.appendChild(cartTotal);
 
-                                    // div totalTitle dans cartTotal 
+                                // div cartTotalTitle dans cartTotal 
 
-                                    let totalPrice = document.createElement("div");
-                                    totalPrice.classList.add("order_total_title", "text-right");
+                                let cartTotalPrice = document.createElement("div");
+                                cartTotalPrice.classList.add("order_total_title", "text-right");
 
-                                    totalPrice.innerText = "Prix: " + produitInLocalStorage[i].camPrice + " €";
+                                cartTotalPrice.innerText = "Prix: " + produitInLocalStorage[i].camPrice + " €";
 
-                                    cartTotal.appendChild(totalPrice);
+                                cartTotal.appendChild(cartTotalPrice);
 
-                                    // création bouton suppression d'un article
-                                    let btnDeleteCam = document.createElement('button');
-                                    btnDeleteCam.className = 'delete_btn';
-                                    btnDeleteCam.title = 'Supprimer cet article ?';
+                                // création bouton suppression d'un article
+                                let btnDeleteCam = document.createElement('button');
+                                btnDeleteCam.classList.add("delete_btn");
+                                btnDeleteCam.title = 'Supprimer cet article ?';
 
-                                    cartTotal.appendChild(btnDeleteCam);
-                                    
-                                    let iconButton = document.createElement('i');
-                                    iconButton.classList.add("icon_button_delete","fas", "fa-trash-alt")    
+                                cartTotal.appendChild(btnDeleteCam);
+                                
+                                let iconButton = document.createElement('i');
+                                iconButton.classList.add("icon_button_delete","fas", "fa-trash-alt")    
 
-                                    btnDeleteCam.appendChild(iconButton);
+                                btnDeleteCam.appendChild(iconButton);
 
+                                let btnDelete = document.getElementsByClassName("delete_btn");
+                                for (let i = 0 ; i < btnDelete.length; i++) { // boucle pour ne pas prendre le 1er de la liste
+                                    btnDelete[i].addEventListener('click' , function (event) { 
+                                        event.preventDefault();
+                                        let id = this.closest(".order_total").camId;
+                            
+                                        // Suppression de l'article du localStorage
+                                        produitInLocalStorage.splice(id, 1);
+                            
+                                        // Enregistrer new localStorage
+                                        localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
+                                        JSON.parse(localStorage.getItem("newProduct"));
+                            
+                                        alert("Cet article a bien été supprimé !");
+                                        window.location.href = "panier.html";   
+                                    }); 
+      
+        
     };
-    // let btnDeleteCam = document.getElementsByClassName('delete_btn');
-    // for (let i = 0 ; i < btnDeleteCam.length; i++) {
-    //     btnDeleteCam[i].addEventListener('click' , function (event) { 
-    //         event.preventDefault();
-    //         let id = this.closest('.order_total').id;
-
-    //         //on supprime l'article du localStorage
-    //         produitInLocalStorage.splice(id, 1);
-
-    //         //on enregistre le nouveau localStorage
-    //         localStorage.setItem('newArticle', JSON.stringify(produitInLocalStorage));
-    //         JSON.parse(localStorage.getItem('newArticle'));
-
-    //         alert('Cet article a bien été supprimé !');
-    //         window.location.href = "panier.html";   
-    //     }); 
 }
                             
+                         
 
-    // ======= Button ======== //
 
-                            let cartReset = document.createElement("button")
-                            cartReset.classList.add("card_btn_reset", "btn", "btnCard", );
 
-                            cartReset.innerText = "Vider le panier";
-
-                            panierCard.appendChild(cartReset);
+                            let totalAmount = document.createElement("div");
+                            totalAmount.classList.add("my-5", "container", "card");
                             
-                            let cartBtn = document.createElement("button");
-                            cartBtn.classList.add("cart_button", "btn", "btnCard", "float-right");
+                            totalAmount.innerText = "Montant total à régler: " + "€";
                             
-                            cartBtn.type = 'submit';
-                            cartBtn.name = 'add';
-                            cartBtn.id = 'submit';
+                            panierCard.appendChild(totalAmount);
+                    
+                            
+                            
+                // ======= Button ======== //
+                
+                let cartReset = document.createElement("button")
+                cartReset.classList.add("card_btn_reset", "btn", "btnCard", );
+                
+                cartReset.innerText = "Vider le panier";
+                
+                panierCard.appendChild(cartReset);
+                
+                cartReset.addEventListener("click", function (event) {
+                event.preventDefault();
+                localStorage.removeItem("newProduct");
+                alert("Votre panier a bien été vidé !");
+                window.location.href = "panier.html";
+            });
+            
+            
+            let cartBtn = document.createElement("button");
+            cartBtn.classList.add("cart_button", "btn", "btnCard", "float-right");
+            
+            cartBtn.type = 'submit';
+            cartBtn.name = 'add';
+            cartBtn.id = 'submit';
 
-                            cartBtn.innerText = "Commander";
+            cartBtn.innerText = "Commander";
 
-                            panierCard.appendChild(cartBtn);
+            panierCard.appendChild(cartBtn);
 
+            // envoie des données du panier et du formulaire au serveur si valide
+
+            // submit.addEventListener("click", function (event) {
+            //     if(validation(firstName.value) && validation(lastName.value) && validationAddresse(address.value) && validation(city.value) && validationMail(mail.value)){
+            //         event.preventDefault();
+
+            // // envoie du prix total au localStorage
+            // localStorage.setItem('totalPrice', totalPrice);
+            // const storagePrice = localStorage.getItem('totalPrice');
+            // console.log(storagePrice);
+            //     })
+            
+    
+
+    // validation des données et envoie au serveur method POST
+
+    let envoie = async function (data){
+        try {
+            let response = await fetch("http://localhost:3000/api/cameras/order", {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if(response.ok) {
+                let value = await response.json();
+                console.log(value.orderId);
+                localStorage.setItem("responseOrder", value.orderId);
+                window.location = "confirmation.html";
+                localStorage.removeItem("newProduct");
+
+            } else {
+                event.preventDefault();
+                console.error('Retour du serveur : ', response.status);
+                alert('Erreur rencontrée : ' + response.status);
+            } 
+        } catch (error) {
+            alert("Erreur : " + error);
+        } 
+    };
+    post(send);
+}
