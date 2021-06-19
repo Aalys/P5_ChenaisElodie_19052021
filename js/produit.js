@@ -12,8 +12,7 @@ let getCameras = async function(){
     let response = await fetch('http://localhost:3000/api/cameras/' + id);
     if (response.ok) {
         let value = await response.json();
-        console.log(value);
-
+      
   
     let camerasDivInfo = document.createElement("div");    
     camerasDivInfo = document.getElementById("container_article");  // relié à ma div de la page produit
@@ -153,14 +152,6 @@ let getCameras = async function(){
 
         addCam.addEventListener("click", function(e) {
             e.preventDefault();
-           
-            // const idForm = document.querySelector("#option_produit");
-            
-            // const envoyerPanier = document.querySelector("btn_envoyer");
-            
-            //   // Mettre le choix dans une variable
-            //   const choixForm = idForm.value;
-            //   console.log(choixForm);
        
               // Récupération valeurs du formulaire
 
@@ -170,6 +161,7 @@ let getCameras = async function(){
                 camDesc : value.description,
                 camPrice : value.price / 100,
                 camLenses: select.value,
+                camPhoto: value.imageUrl,
                 quantité : 1,
                 };
 
@@ -204,11 +196,11 @@ let getCameras = async function(){
       
           console.log(produitInLocalStorage);
 
-            // if (window.confirm(select.name + " " + camLenses + ' a bien été ajouté. Souhaitez vous aller à votre panier ?')) { 
-            //     window.location.href = "panier.html";
-            // } else {
-            //     window.location.href = "../index.html";
-            // }
+            if (window.confirm(select.name + " " + camLenses + ' a bien été ajouté. Souhaitez vous aller à votre panier ?')) { 
+                window.location.href = "panier.html";
+            } else {
+                window.location.href = "../index.html";
+            }
          }
         });
         } else {
