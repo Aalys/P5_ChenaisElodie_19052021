@@ -1,6 +1,6 @@
 // extraire id
 
-const queryString = window.location.search;
+const queryString = window.location.search; // renvoie objet location qui contient les informations de l'url du document
 const urlParams = new URLSearchParams(queryString); // retourne la première valeur associée à id 
 const id = urlParams.get('id');    
 console.log(id);

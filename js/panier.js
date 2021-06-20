@@ -358,13 +358,13 @@
                                 btnDeleteCam.appendChild(iconButton);
 
                                 let btnDelete = document.getElementsByClassName("delete_btn");
-                                for (let i = 0 ; i < btnDelete.length; i++) { // boucle pour ne pas prendre le 1er de la liste
+                                for (let i = 0 ; i < btnDelete.length; i++) { 
                                     btnDelete[i].addEventListener('click' , function (e) { 
                                         event.preventDefault();
-                                        let id = this.closest(".order_total").camId;
+                                        let id = this.closest(".order_total").id;
                             
                                         // Suppression de l'article du localStorage
-                                        produitInLocalStorage.splice(id, 1);
+                                        produitInLocalStorage.splice(id, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
                             
                                         // Enregistrer new localStorage
                                         localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
