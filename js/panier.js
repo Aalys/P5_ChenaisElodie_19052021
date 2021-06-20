@@ -359,7 +359,7 @@
 
                                 let btnDelete = document.getElementsByClassName("delete_btn");
                                 for (let i = 0 ; i < btnDelete.length; i++) { // boucle pour ne pas prendre le 1er de la liste
-                                    btnDelete[i].addEventListener('click' , function (event) { 
+                                    btnDelete[i].addEventListener('click' , function (e) { 
                                         event.preventDefault();
                                         let id = this.closest(".order_total").camId;
                             
@@ -372,6 +372,12 @@
                             
                                         alert("Cet article a bien été supprimé !");
                                         window.location.href = "panier.html";   
+
+
+                                // === Méthode Filter ON ==
+
+                                // let btnDelete = document.getElementsByClassName("delete_btn");
+                                // for (let i= 0; i < btnDeleteCam)
                                     }); 
       
         
@@ -460,5 +466,5 @@
             alert("Erreur : " + error);
         } 
     };
-    post(send);
+    // post(send);
 }
