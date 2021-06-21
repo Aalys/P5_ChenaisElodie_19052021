@@ -153,7 +153,7 @@ let getCameras = async function(){
         addCam.addEventListener("click", function(e) {
             e.preventDefault();
        
-              // Récupération valeurs du formulaire
+              // Récupération valeurs du formulaire dans objet
 
             let optionProduit = {
                 camName : value.name,

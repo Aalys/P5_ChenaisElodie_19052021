@@ -1,9 +1,46 @@
-   // récpère localstorage de la page produit.js
+   // récupère localstorage de la page produit.js
    
    let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
     console.log(produitInLocalStorage);
-    
-   // ======== Formulaire + expression régulière ========== //
+
+
+
+    // =======================================================
+    // =============== Calcul du total du panier ============= 
+    // =======================================================
+
+   // déclaration de la variable pour mettre les prix présents dans le panier
+
+   let prixTotalCalcul = [];
+
+   // aller chercher les prix dans le panier
+
+   for (let m = 0; m < produitInLocalStorage.length; m++){
+       let prixProduitDansPanier = produitInLocalStorage[m].camPrice;
+
+       // mettre les prix du panier dans la variable prixTotalCalcul
+
+       prixTotalCalcul.push(prixProduitDansPanier);    // ajouter un nouvel élément au tableau 
+
+
+       console.log("Boucle prix panier:" + prixTotalCalcul);
+   }
+
+   // additionner les prix dans la variable prixTotalCalcul avec la méthode reduce() => applique une fonction qui est un "accumulateur"
+   // et qui traite chaque valeur d'une liste afin de réduire à une seule valeur. 
+
+   const reducer = (accumulator, currentValue) => accumulator + currentValue;
+   const prixTotal = prixTotalCalcul.reduce(reducer);
+
+   console.log("Prix total:" + prixTotal);
+
+
+
+
+
+    // =======================================================  
+    // ======== Formulaire + expression régulière ============
+    // =======================================================
 
     
     let panierCard = document.createElement("div");
@@ -24,19 +61,19 @@
 
         form.appendChild(camH4);
 
-    // création fonctions de validité prénom, nom, ville
+    // création fonction de validité prénom, nom, ville
     function validation(value) {
-        return /^[A-Z-a-z\s]{3,40}$/.test(value);
+        return /^[A-Z-a-z\s]{3,40}$/.test(value);     // vérifie de A à Z + vérifie le nombre de caractères {}  // \s = whitespace // /^ début  // $/ fin 
     };
 
-    // création fonctions de validité adresse
+    // création fonction de validité adresse
     function validationAddresse(value) {
-        return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value)
+        return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value);
     };
 
-    // création fonctions de validité mail
+    // création fonction de validité mail
     function validationMail(value){
-        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
+        return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);  // \w = wordcharacter = A word character is a character from a-z, A-Z, 0-9, including the _ (underscore) character.
     };
 
     // ajout formulaire "prénom"
@@ -52,7 +89,7 @@
     divFirstName.appendChild(labelFirstName);
 
     let firstName = document.createElement("input");
-    firstName.classList.add("input_order");
+    firstName.classList.add("input_order", "firstName");
     firstName.setAttribute('type', 'text');
     firstName.name = "Prénom"
     firstName.required = true;
@@ -60,11 +97,11 @@
     divFirstName.appendChild(firstName);
 
     // Vérification de la validité du prénom
-    firstName.addEventListener("change", function (event) {
+    firstName.addEventListener("change", function (e) {
         if (validation(firstName.value)) {
         } else {
-            alert( "Aucun chiffre ou symbole n'est autorisé.")
-            event.preventDefault()
+            alert( "Les chiffres et les symboles ne sont pas autorisés.")
+            e.preventDefault()    // stopper comportement par défaut 
         }
     });
 
@@ -81,7 +118,7 @@
     divLastName.appendChild(labelLastName);
 
     let lastName = document.createElement("input");
-    lastName.classList.add("input_order");      
+    lastName.classList.add("input_order", "lastName");      
     lastName.setAttribute('type', 'text');
     lastName.name = "Nom"
     lastName.required = true;
@@ -89,11 +126,11 @@
     divLastName.appendChild(lastName);
 
     // Vérification de la validité du nom
-    lastName.addEventListener("change", function (event) {
+    lastName.addEventListener("change", function (e) {
         if (validation(lastName.value)) {
         } else {
-            alert("Aucun chiffre ou symbole n'est autorisé.")
-            event.preventDefault()
+            alert("Les chiffres et symboles ne sont pas autorisés.")
+            e.preventDefault()
         }
     });
 
@@ -110,7 +147,7 @@
     divAddress.appendChild(labelAdress);
 
     let address = document.createElement("textarea");
-    address.classList.add("input_order");
+    address.classList.add("input_order", "address");
     address.setAttribute('type', 'text');
     address.name = "Adresse";
     address.required = true;
@@ -118,11 +155,11 @@
     divAddress.appendChild(address);
 
     // Vérification de la validité de l'adresse
-    address.addEventListener("change", function (event) {
+    address.addEventListener("change", function (e) {
         if (validationAddresse(address.value)){
         } else {
-            event.preventDefault()
-            alert("Aucun symbole n'est autorisé.");
+            e.preventDefault()
+            alert("Les symboles ne sont pas autorisés ou adresse trop courte. ");
         }
     });
 
@@ -140,7 +177,7 @@
     divCity.appendChild(labelCity);
 
     let city = document.createElement("input");
-    city.classList.add("input_order");
+    city.classList.add("input_order", "city");
     city.setAttribute('type', 'text');
     city.name = "Ville";
     city.required = true;
@@ -148,11 +185,11 @@
     divCity.appendChild(city);
 
     // Vérification de la validité de la ville
-    city.addEventListener("change", function (event) {
+    city.addEventListener("change", function (e) {
         if (validation(city.value)) {
         } else {
-            alert("Aucun chiffre ou symbole n'est autorisé.")
-            event.preventDefault()
+            alert("Les chiffres et les symboles ne sont pas autorisés.")
+            e.preventDefault()
         }
     });
 
@@ -170,7 +207,7 @@
     divMail.appendChild(labelMail);
 
     let mail = document.createElement("input");
-    mail.classList.add("input_order");
+    mail.classList.add("input_order", "mail");
     mail.setAttribute('type', 'email');
     mail.name = "Adresse mail"
     mail.required = true;
@@ -178,17 +215,20 @@
     divMail.appendChild(mail);
 
     // Vérification de la validité du mail
-    mail.addEventListener("change", function (event) {
+    mail.addEventListener("change", function (e) {
         if (validationMail(mail.value)){
         } else {
-            event.preventDefault()
+            e.preventDefault()
             alert("Veuillez saisir une adresse mail valide (exemple : prenom.nom@mail.com).");
         }
     });
 
 
+
+
+
     // ======================================================
-    // =======   Afficher les produits dans le panier ======= // 
+    // =======   Afficher les produits dans le panier ======= 
     // ======================================================
 
     
@@ -360,8 +400,8 @@
                                 let btnDelete = document.getElementsByClassName("delete_btn");
                                 for (let i = 0 ; i < btnDelete.length; i++) { 
                                     btnDelete[i].addEventListener('click' , function (e) { 
-                                        event.preventDefault();
-                                        let id = this.closest(".order_total").id;
+                                        e.preventDefault();
+                                        let id = this.closest(".order_total").id;  // appel 
                             
                                         // Suppression de l'article du localStorage
                                         produitInLocalStorage.splice(id, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
@@ -382,22 +422,20 @@
       
         
     };
-}
+}}
                             
                          
-
-
+                // ======  affichage prix total ======= //
 
                             let totalAmount = document.createElement("div");
                             totalAmount.classList.add("my-5", "container", "card");
                             
-                            totalAmount.innerText = "Montant total à régler: " + "€";
+                            totalAmount.innerHTML = "Montant total à régler: " + prixTotal + "€";
                             
                             panierCard.appendChild(totalAmount);
-                    
+                                              
                             
-                            
-                // ======= Button ======== //
+                // ======= Button bas de page ======== //
                 
                 let cartReset = document.createElement("button")
                 cartReset.classList.add("card_btn_reset", "btn", "btnCard", );
@@ -406,12 +444,12 @@
                 
                 panierCard.appendChild(cartReset);
                 
-                cartReset.addEventListener("click", function (event) {
-                event.preventDefault();
+                cartReset.addEventListener("click", function (e) {
+                e.preventDefault();
                 localStorage.removeItem("newProduct");
                 alert("Votre panier a bien été vidé !");
                 window.location.href = "panier.html";
-            });
+                });
             
             
             let cartBtn = document.createElement("button");
@@ -425,46 +463,168 @@
 
             panierCard.appendChild(cartBtn);
 
-            // envoie des données du panier et du formulaire au serveur si valide
+     
 
-            // submit.addEventListener("click", function (event) {
-            //     if(validation(firstName.value) && validation(lastName.value) && validationAddresse(address.value) && validation(city.value) && validationMail(mail.value)){
-            //         event.preventDefault();
+    // ====================================================================================
+    // ============================== Coté serveur ========================================      
+    // ====================================================================================  
 
-            // // envoie du prix total au localStorage
-            // localStorage.setItem('totalPrice', totalPrice);
-            // const storagePrice = localStorage.getItem('totalPrice');
-            // console.log(storagePrice);
-            //     })
-            
+    // ========= faire marcher le bouton commander ======== 
+
+    // sélection du bouton 
+
+    let btnCommander = document.querySelector(".cart_button");
+    
+    // addeventlistener btnCommander
+
+    btnCommander.addEventListener("click", (e) => {   
+    if(validation(firstName.value) && validation(lastName.value) && validationAddresse(address.value) && validation(city.value) && validationMail(mail.value)){
+    // si valide
+    e.preventDefault();
+
+    // Récupérer les données du formulaire 
+
+    let formulaireValues = {
+        firstName:  document.querySelector(".firstName").value,
+        lastName: document.querySelector(".lastName").value,
+        adress: document.querySelector(".address").value,
+        city: document.querySelector(".city").value,
+        mail: document.querySelector(".mail").value,
+    }
+    console.log("Formulaire :");
+    console.log(formulaireValues);
+
+    // Mettre formulaireValues dans le localstorage 
+
+    localStorage.setItem("formulaireValues", JSON.stringify(formulaireValues));  
+
+    // On ne peut pas mettre simplement formulaireValues car c'est un objet et non une chaine de caractères.
+    // donc il faut convertir
+
+    // ============ Test 1 ================ // 
+    
+    // // Récupérer les données du formulaire pour les mettre dans le localstorage
+
+    // localStorage.setItem("firstName", document.querySelector(".firstName").value);
+    // localStorage.setItem("lastName", document.querySelector(".lastName").value);
+    // localStorage.setItem("address", document.querySelector(".address").value);
+    // localStorage.setItem("city", document.querySelector(".city").value);
+    // localStorage.setItem("mail", document.querySelector(".mail").value);
+        
+    // console.log("Prénom:" + document.querySelector(".firstName").value);
+
+    // // // Récupérer le prixTotal pour le mettre dans le localstorage 
+
+    // // localStorage.setItem("prixTotal", prixTotal);   
+    // // let localStoragePrice = localStorage.getItem("prixTotal");
+        
+    // // création objet contact pour recueillir les info contact //
+    // let formulaire = {
+    //     firstName: localStorage.getItem("firstName"),
+    //     lastName: localStorage.getItem("lastName"),
+    //     adress: localStorage.getItem("adress"),
+    //     city: localStorage.getItem("city"),
+    //     mail: localStorage.getItem("mail"),
+    // }
+    // console.log("Formulaire: ");
+    // console.log(formulaire);
+
+
+// =========== Fin TEST 1 ==========================
+
+
+    // Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
+
+    let aEnvoyer = {
+        produitInLocalStorage,
+        formulaireValues, 
+    }
+    console.log("A envoyer :");
+    console.log(aEnvoyer);
+
+    // Récupérer l'id de commande renvoyée par l'API et stockage dans le localStorage
+    function getOrderValidationId(aEnvoyer) {
+        let orderId = responseId.orderId;
+        console.log(orderId);
+        localStorage.setItem("orderValidationId", orderId);
+    }
+
+    // aEnvoyer vers le serveur  avec la méthode  fetch POST
+
+    // let envoie = fetch("http://localhost:3000/api/cameras/order", {
+    //     method: "POST",
+    //     body: JSON.stringify(aEnvoyer),
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     }
+
+    // });
+
+    // // Pour voir le résultat dans la console
+
+    // envoie.then(async (response) => {
+    //     try {
+    //         console.log("response : ");
+    //         console.log(response);
+
+    //         let contenu = await response.json();
+    //         console.log(contenu);
+    //     }catch(e){
+    //         console.log(e);    
+    //     }
+
+    // })
+}
+
+    
+    
+    async function postForm(dataToSend){
+        try{ 
+           let response = fetch("http://localhost:3000/api/cameras/order", {
+                   method: "POST",
+                   body: JSON.stringify(dataToSend),
+                   headers: {
+                       "Content-Type": "application/json",
+                   }
+               });
+            if(response.ok){
+            let responseId = await response.json();
+                console.log(dataToSend.orderId);
+                getOrderValidationId(responseId);
+                window.location = "validation.html";
+                localStorage.removeItem("newProduct");
+            }else {
+                console.error('Retour du serveur : ', response.status);
+            }
+        } catch (e) {
+            alert("Erreur : " + error);
+            console.log(e);
+       } 
+       postForm(dataToSend);
+    };
+
+});
     
 
-    // validation des données et envoie au serveur method POST
 
-    let envoie = async function (data){
-        try {
-            let response = await fetch("http://localhost:3000/api/cameras/order", {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            if(response.ok) {
-                let value = await response.json();
-                console.log(value.orderId);
-                localStorage.setItem("responseOrder", value.orderId);
-                window.location = "confirmation.html";
-                localStorage.removeItem("newProduct");
 
-            } else {
-                event.preventDefault();
-                console.error('Retour du serveur : ', response.status);
-                alert('Erreur rencontrée : ' + response.status);
-            } 
-        } catch (error) {
-            alert("Erreur : " + error);
-        } 
-    };
-    // post(send);
-}
+// ==================== Mettre le contenu du localstorage dans le formulaire ====================
+// Pouvoir changer de page sans effacer le localstorage et donc retrouver ses info 
+
+// Prendre key localstorage et la mettre dans une variable 
+
+let dataLocalStorage = localStorage.getItem("formulaireValues");
+
+let dataLocalStorageObjet = JSON.parse(dataLocalStorage);
+
+// Mettre les values du localstorage dans les champs du formulaire
+
+document.querySelector(".firstName").setAttribute("value", dataLocalStorageObjet.firstName);
+document.querySelector(".lastName").setAttribute("value", dataLocalStorageObjet.lastName);
+document.querySelector(".address").setAttribute("value", dataLocalStorageObjet.address);
+document.querySelector(".city").setAttribute("value", dataLocalStorageObjet.city);
+document.querySelector(".mail").setAttribute("value", dataLocalStorageObjet.mail);
+
+console.log("dataLocalStorageObjet: ");
+console.log(dataLocalStorageObjet);
+
