@@ -604,7 +604,6 @@
        } 
        postForm(dataToSend);
     };
-
 });
     
 
