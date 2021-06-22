@@ -91,7 +91,7 @@
     let firstName = document.createElement("input");
     firstName.classList.add("input_order", "firstName");
     firstName.setAttribute('type', 'text');
-    firstName.name = "Prénom"
+    firstName.name = "Prénom";
     firstName.required = true;
 
     divFirstName.appendChild(firstName);
@@ -454,6 +454,7 @@
             
             let cartBtn = document.createElement("button");
             cartBtn.classList.add("cart_button", "btn", "btnCard", "float-right");
+          
             
             cartBtn.type = 'submit';
             cartBtn.name = 'add';
@@ -473,23 +474,24 @@
 
     // sélection du bouton 
 
-    let btnCommander = document.querySelector(".cart_button");
+    let btnCommander = document.getElementsByClassName("cart_button");
+    console.log(btnCommander);
     
     // addeventlistener btnCommander
 
-    btnCommander.addEventListener("click", (e) => {   
-    if(validation(firstName.value) && validation(lastName.value) && validationAddresse(address.value) && validation(city.value) && validationMail(mail.value)){
+    btnCommander[0].addEventListener("click", function(e) {   
+    // if(validation(firstName.value) && validation(lastName.value) && validationAddresse(address.value) && validation(city.value) && validationMail(mail.value)){
     // si valide
     e.preventDefault();
 
     // Récupérer les données du formulaire 
-
+        console.log(document.getElementsByClassName("firstName").value);
     let formulaireValues = {
-        firstName:  document.querySelector(".firstName").value,
-        lastName: document.querySelector(".lastName").value,
-        adress: document.querySelector(".address").value,
-        city: document.querySelector(".city").value,
-        mail: document.querySelector(".mail").value,
+        firstName: document.getElementsByClassName("firstName").value,
+        lastName: document.getElementsByClassName("lastName").value,
+        adress: document.getElementsByClassName("address").value,
+        city: document.getElementsByClassName("city").value,
+        mail: document.getElementsByClassName("mail").value,
     }
     console.log("Formulaire :");
     console.log(formulaireValues);
@@ -574,7 +576,7 @@
     //     }
 
     // })
-}
+
 
     
     
