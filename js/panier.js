@@ -503,22 +503,33 @@ localStorage.setItem("formulaireValues", JSON.stringify(formulaireValues));
 // On ne peut pas mettre simplement formulaireValues car c'est un objet et non une chaine de caractères.
 // donc il faut convertir
 
+// création tableau produits 
+
+let listIdProduits = [];
+
+for (let i = 0; i < produitInLocalStorage.length; i++) {
+    let produits = produitInLocalStorage[i].camId;
+    listIdProduits.push(produits);
+}
+console.log(listIdProduits);
+
+localStorage.setItem("listProducts", JSON.stringify(listIdProduits));
+listIdProduits = localStorage.getItem("listProducts");
+listIdProduits = JSON.parse(listIdProduits);
+let listProducts = listIdProduits;
 
 // Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
 
 let aEnvoyer = {
-    produitInLocalStorage,
+    listProducts,
     formulaireValues, 
 }
+localStorage.setItem("aEnvoyer", JSON.stringify(aEnvoyer));
+aEnvoyer = localStorage.getItem("aEnvoyer");
+aEnvoyer = JSON.parse(aEnvoyer);
 console.log("A envoyer :");
 console.log(aEnvoyer);
 
-// Récupérer l'id de commande renvoyée par l'API et stockage dans le localStorage
-function getOrderValidationId(aEnvoyer) {
-    let orderId = responseId.orderId;
-    console.log(orderId);
-    localStorage.setItem("orderValidationId", orderId);
-}
 
 // aEnvoyer vers le serveur  avec la méthode  fetch POST
 
@@ -549,30 +560,22 @@ function getOrderValidationId(aEnvoyer) {
 
 
 
-async function postForm(dataToSend){
-    try{ 
-       let response = fetch("http://localhost:3000/api/cameras/order", {
-               method: "POST",
-               body: JSON.stringify(dataToSend),
-               headers: {
-                   "Content-Type": "application/json",
-               }
-           });
-        if(response.ok){
-        let responseId = await response.json();
-            console.log(dataToSend.orderId);
-            getOrderValidationId(responseId);
-            window.location = "validation.html";
-            localStorage.removeItem("newProduct");
-        }else {
-            console.error('Retour du serveur : ', response.status);
-        }
-    } catch (e) {
-        alert("Erreur : " + error);
-        console.log(e);
-   } 
-   postForm(dataToSend);
-};
+    fetch("https://oc-p5-api.herokuapp.com/api/cameras/order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(aEnvoyer),
+    })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+        })
+        .then((data) => {
+            localStorage.setItem("orderInfos", JSON.stringify(data))
+        })
+        .catch((error) => console.log("erreur de type : ", error))
 });
 
 
