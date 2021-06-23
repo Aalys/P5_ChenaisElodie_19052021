@@ -503,37 +503,6 @@ localStorage.setItem("formulaireValues", JSON.stringify(formulaireValues));
 // On ne peut pas mettre simplement formulaireValues car c'est un objet et non une chaine de caractères.
 // donc il faut convertir
 
-// ============ Test 1 ================ // 
-
-// // Récupérer les données du formulaire pour les mettre dans le localstorage
-
-// localStorage.setItem("firstName", document.querySelector(".firstName").value);
-// localStorage.setItem("lastName", document.querySelector(".lastName").value);
-// localStorage.setItem("address", document.querySelector(".address").value);
-// localStorage.setItem("city", document.querySelector(".city").value);
-// localStorage.setItem("mail", document.querySelector(".mail").value);
-    
-// console.log("Prénom:" + document.querySelector(".firstName").value);
-
-// // // Récupérer le prixTotal pour le mettre dans le localstorage 
-
-// // localStorage.setItem("prixTotal", prixTotal);   
-// // let localStoragePrice = localStorage.getItem("prixTotal");
-    
-// // création objet contact pour recueillir les info contact //
-// let formulaire = {
-//     firstName: localStorage.getItem("firstName"),
-//     lastName: localStorage.getItem("lastName"),
-//     adress: localStorage.getItem("adress"),
-//     city: localStorage.getItem("city"),
-//     mail: localStorage.getItem("mail"),
-// }
-// console.log("Formulaire: ");
-// console.log(formulaire);
-
-
-// =========== Fin TEST 1 ==========================
-
 
 // Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
 
