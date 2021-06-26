@@ -424,8 +424,7 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
   
     
 };
-}}
-         console.log(prixTotal);               
+}}    
                      
             // ======  affichage prix total ======= //
 
@@ -479,105 +478,132 @@ let btnCommander = document.querySelector(".cart_button");
 
 // addeventlistener btnCommander
 
-btnCommander.addEventListener("click", (e) => {   
-if(validation(firstName.value) && validation(lastName.value) && validationAddresse(address.value) && validation(city.value) && validationMail(mail.value)){
-// si valide
-e.preventDefault();
+btnCommander.addEventListener("click", function(e) {   
+    // if(validation(firstName.value) && validation(lastName.value) && validationAddresse(address.value) && validation(city.value) && validationMail(mail.value)){
+    // si valide
+    e.preventDefault();
 
-// Récupérer les données du formulaire 
+    // Récupérer les données du formulaire 
 
-let formulaireValues = {
-    firstName: document.querySelector(".firstName").value,
-    lastName: document.querySelector(".lastName").value,
-    adress: document.querySelector(".address").value,
-    city: document.querySelector(".city").value,
-    mail: document.querySelector(".mail").value,
-}
-console.log("Formulaire :");
-console.log(formulaireValues);
+    let formulaireValues = {
+        firstName: document.querySelector(".firstName").value,
+        lastName: document.querySelector(".lastName").value,
+        adress: document.querySelector(".address").value,
+        city: document.querySelector(".city").value,
+        mail: document.querySelector(".mail").value,
+    }
+    console.log("Formulaire :");
+    console.log(formulaireValues);
 
-// Mettre formulaireValues dans le localstorage 
+    // Mettre formulaireValues dans le localstorage 
 
-localStorage.setItem("formulaireValues", JSON.stringify(formulaireValues));  
+    localStorage.setItem("formulaireValues", JSON.stringify(formulaireValues));  
 
-// On ne peut pas mettre simplement formulaireValues car c'est un objet et non une chaine de caractères.
-// donc il faut convertir
+    // On ne peut pas mettre simplement formulaireValues car c'est un objet et non une chaine de caractères.
+    // donc il faut convertir
 
-// création tableau produits 
+    // création tableau produits 
 
-let listIdProduits = [];
+    let listIdProduits = [];
 
-for (let i = 0; i < produitInLocalStorage.length; i++) {
-    let produits = produitInLocalStorage[i].camId;
-    listIdProduits.push(produits);
-}
-console.log(listIdProduits);
+    for (let i = 0; i < produitInLocalStorage.length; i++) {
+        let produits = produitInLocalStorage[i].camId;
+        listIdProduits.push(produits);
+    }
+    
+    localStorage.setItem("listProducts", JSON.stringify(listIdProduits));
+    listIdProduits = localStorage.getItem("listProducts");
+    listIdProduits = JSON.parse(listIdProduits);
+    let listProducts = listIdProduits;
+    console.log(listProducts);
 
-localStorage.setItem("listProducts", JSON.stringify(listIdProduits));
-listIdProduits = localStorage.getItem("listProducts");
-listIdProduits = JSON.parse(listIdProduits);
-let listProducts = listIdProduits;
+    // Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
 
-// Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
-
-let aEnvoyer = {
-    listProducts,
-    formulaireValues, 
-}
-localStorage.setItem("aEnvoyer", JSON.stringify(aEnvoyer));
-aEnvoyer = localStorage.getItem("aEnvoyer");
-aEnvoyer = JSON.parse(aEnvoyer);
-console.log("A envoyer :");
-console.log(aEnvoyer);
-
-
-// aEnvoyer vers le serveur  avec la méthode  fetch POST
-
-// let envoie = fetch("http://localhost:3000/api/cameras/order", {
-//     method: "POST",
-//     body: JSON.stringify(aEnvoyer),
-//     headers: {
-//         "Content-Type": "application/json",
-//     }
-
-// });
-
-// // Pour voir le résultat dans la console
-
-// envoie.then(async (response) => {
-//     try {
-//         console.log("response : ");
-//         console.log(response);
-
-//         let contenu = await response.json();
-//         console.log(contenu);
-//     }catch(e){
-//         console.log(e);    
-//     }
-
-// })
-}
-
-
-
-    fetch("https://oc-p5-api.herokuapp.com/api/cameras/order", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(aEnvoyer),
-    })
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
+    let aEnvoyer = {
+        listProducts,
+        formulaireValues, 
+    }
+    localStorage.setItem("aEnvoyer", JSON.stringify(aEnvoyer));
+    aEnvoyer = localStorage.getItem("aEnvoyer");
+    aEnvoyer = JSON.parse(aEnvoyer);
+    console.log("A envoyer :");
+    
+    
+    // aEnvoyer vers le serveur  avec la méthode  fetch POST
+    
+    // let envoie = fetch("http://localhost:3000/api/cameras/order", {
+        //     method: "POST",
+        //     body: JSON.stringify(aEnvoyer),
+        //     headers: {
+            //         "Content-Type": "application/json",
+            //     }
+            
+            // });
+            
+            // // Pour voir le résultat dans la console
+            
+            // envoie.then(async (response) => {
+                //     try {
+                    //         console.log("response : ");
+                    //         console.log(response);
+                    
+                    //         let contenu = await response.json();
+                    //         console.log(contenu);
+                    //     }catch(e){
+                        //         console.log(e);    
+                        //     }
+                        
+                        // })
+                    },
+                    
+                    
+                    
+                    //         fetch("http://localhost:3000/api/cameras/order", {
+                        //             method: "POST",
+                        //             headers: {
+                            //                 "Content-Type": "application/json"
+                            //             },
+                            //             body: JSON.stringify(aEnvoyer),
+                            //         })
+                            //             .then((response) => {
+                                //                 if (response.ok) {
+                                    //                     return response.json();
+                                    //                 }
+                                    //             })
+                                    //             .then((data) => {
+                                        //                 localStorage.setItem("orderInfos", JSON.stringify(data))
+                                        //             })
+                                        //             .catch((error) => console.log("erreur de type : ", error))
+                                        // );
+                                        
+                                        
+    async function postForm(dataToSend){
+        try{ 
+            let response = fetch("http://localhost:3000/api/cameras/order", {
+                method: "POST",
+                body: JSON.stringify(aEnvoyer),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            if(response.ok){
+                let responseId = await response.json();
+                console.log(dataToSend.orderId);
+                getOrderValidationId(responseId);
+                window.location = "validation.html";
+                localStorage.removeItem("newProduct");
+            }else {
+                console.error('Retour du serveur : ', response.status);
             }
-        })
-        .then((data) => {
-            localStorage.setItem("orderInfos", JSON.stringify(data))
-        })
-        .catch((error) => console.log("erreur de type : ", error))
+        } catch (e) {
+            alert("Erreur : " + error);
+            console.log(e);
+        } 
+        postForm(dataToSend);
+        console.log(dataToSend);
 });
-
+    
+    
 
 
 
@@ -586,17 +612,17 @@ console.log(aEnvoyer);
 
 // Prendre key localstorage et la mettre dans une variable 
 
-// let dataLocalStorage = localStorage.getItem("formulaireValues");
+let dataLocalStorage = localStorage.getItem("formulaireValues");
 
-// let dataLocalStorageObjet = JSON.parse(dataLocalStorage);
+let dataLocalStorageObjet = JSON.parse(dataLocalStorage);
 
-// // Mettre les values du localstorage dans les champs du formulaire
+// Mettre les values du localstorage dans les champs du formulaire
 
-// document.querySelector(".firstName").setAttribute("value", dataLocalStorageObjet.firstName);
-// document.querySelector(".lastName").setAttribute("value", dataLocalStorageObjet.lastName);
-// document.querySelector(".address").setAttribute("value", dataLocalStorageObjet.address);
-// document.querySelector(".city").setAttribute("value", dataLocalStorageObjet.city);
-// document.querySelector(".mail").setAttribute("value", dataLocalStorageObjet.mail);
+document.querySelector(".firstName").setAttribute("value", dataLocalStorageObjet.firstName);
+document.querySelector(".lastName").setAttribute("value", dataLocalStorageObjet.lastName);
+document.querySelector(".address").setAttribute("value", dataLocalStorageObjet.address);
+document.querySelector(".city").setAttribute("value", dataLocalStorageObjet.city);
+document.querySelector(".mail").setAttribute("value", dataLocalStorageObjet.mail);
 
-// console.log("dataLocalStorageObjet: ");
-// console.log(dataLocalStorageObjet);
+console.log("dataLocalStorageObjet: ");
+console.log(dataLocalStorageObjet);
