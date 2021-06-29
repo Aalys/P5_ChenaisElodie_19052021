@@ -1,5 +1,5 @@
 // récupère localstorage de la page produit.js
-   
+
 let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
 console.log(produitInLocalStorage);
 
@@ -513,44 +513,45 @@ btnCommander.addEventListener("click", function(e) {
     }
     
     localStorage.setItem("listProducts", JSON.stringify(listIdProduits));
-    // listIdProduits = JSON.parse(listIdProduits);
+    listIdProduits = JSON.stringify(listIdProduits);
     console.log(listIdProduits);
     
 
     // Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
 
-    var aEnvoyer = {
+    var aEnvoyer = JSON.stringify({
         formulaireValues, 
         listIdProduits
-    }
-    localStorage.setItem("aEnvoyer", JSON.stringify(aEnvoyer));
+    })
+    // localStorage.setItem("aEnvoyer", JSON.stringify(aEnvoyer));
     console.log("A envoyer :");
     console.log(aEnvoyer);
     
-    let envoie = JSON.stringify(aEnvoyer);
+    // var envoie = JSON.stringify(aEnvoyer);
     
                                         
-    postForm(envoie);
+    postForm(aEnvoyer);
 
-    function postForm(envoie){
+    }
+    function postForm(aEnvoyer){
         fetch("http://localhost:3000/api/cameras/order", {
                 method: "POST",
-                body: JSON.stringify(envoie),
+                body: JSON.stringify(aEnvoyer),
                 headers: {
                     "Content-Type": "application/json"
                 }
             })
+            // Promesse 
             .then(function(reponse){
                 return reponse.json()
-            });
+            })
             // if(reponse.ok){
             //     window.location = "validation.html";
             //     localStorage.removeItem("newProduct");
             // }else {
             //     console.error('Retour du serveur : ', reponse.status);
             // }
-        }
-    }
+        };
 });
     
     
