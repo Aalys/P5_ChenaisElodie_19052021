@@ -422,7 +422,7 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
                                 }); 
   
     
-};
+    };
 }}    
                      
             // ======  affichage prix total ======= //
