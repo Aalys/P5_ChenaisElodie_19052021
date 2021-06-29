@@ -101,7 +101,7 @@ function createCard(value){
     
     let id = value[i]._id;
 
-    var listOfProducts = document.createElement("div"); 
+    let listOfProducts = document.createElement("div"); 
     listOfProducts = document.getElementById("rowtwo");
     listOfProducts.classList.add("my-5");
     

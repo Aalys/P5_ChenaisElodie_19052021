@@ -46,8 +46,6 @@
     let panierCard = document.createElement("div");
     panierCard = document.getElementById("container_panier")
     panierCard.classList.add("my-5", "container");
-    console.log(panierCard);
-
 
 
          //création du formulaire de commande
@@ -444,7 +442,7 @@
                 
                 panierCard.appendChild(cartReset);
                 
-                cartReset.addEventListener("click", function (e) {
+                cartReset.addEventListener("click", function(e) {
                 e.preventDefault();
                 localStorage.removeItem("newProduct");
                 alert("Votre panier a bien été vidé !");
@@ -544,10 +542,10 @@
 
     // Récupérer l'id de commande renvoyée par l'API et stockage dans le localStorage
     function getOrderValidationId(aEnvoyer) {
-        let orderId = responseId.orderId;
-        console.log(orderId);
+        let orderId = produitInLocalStorage.orderId;
         localStorage.setItem("orderValidationId", orderId);
     }
+    console.log(orderId);
 
     // aEnvoyer vers le serveur  avec la méthode  fetch POST
 
@@ -582,7 +580,7 @@
         try{ 
            let response = fetch("http://localhost:3000/api/cameras/order", {
                    method: "POST",
-                   body: JSON.stringify(dataToSend),
+                   body: JSON.stringify(aEnvoyer),
                    headers: {
                        "Content-Type": "application/json",
                    }
@@ -612,18 +610,18 @@
 
 // Prendre key localstorage et la mettre dans une variable 
 
-let dataLocalStorage = localStorage.getItem("formulaireValues");
+// let dataLocalStorage = localStorage.getItem("formulaireValues");
 
-let dataLocalStorageObjet = JSON.parse(dataLocalStorage);
+// let dataLocalStorageObjet = JSON.parse(dataLocalStorage);
 
-// Mettre les values du localstorage dans les champs du formulaire
+// // Mettre les values du localstorage dans les champs du formulaire
 
-document.querySelector(".firstName").setAttribute("value", dataLocalStorageObjet.firstName);
-document.querySelector(".lastName").setAttribute("value", dataLocalStorageObjet.lastName);
-document.querySelector(".address").setAttribute("value", dataLocalStorageObjet.address);
-document.querySelector(".city").setAttribute("value", dataLocalStorageObjet.city);
-document.querySelector(".mail").setAttribute("value", dataLocalStorageObjet.mail);
+// document.querySelector(".firstName").setAttribute("value", dataLocalStorageObjet.firstName);
+// document.querySelector(".lastName").setAttribute("value", dataLocalStorageObjet.lastName);
+// document.querySelector(".address").setAttribute("value", dataLocalStorageObjet.address);
+// document.querySelector(".city").setAttribute("value", dataLocalStorageObjet.city);
+// document.querySelector(".mail").setAttribute("value", dataLocalStorageObjet.mail);
 
-console.log("dataLocalStorageObjet: ");
-console.log(dataLocalStorageObjet);
+// console.log("dataLocalStorageObjet: ");
+// console.log(dataLocalStorageObjet);
 
