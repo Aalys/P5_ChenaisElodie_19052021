@@ -4,7 +4,6 @@ let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
 console.log(produitInLocalStorage);
 
 
-
 // =======================================================
 // =============== Calcul du total du panier ============= 
 // =======================================================
@@ -51,10 +50,10 @@ let panierCard = document.createElement("div");
 panierCard = document.getElementById("container_panier");
 panierCard.classList.add("my-5", "container");
 
-    
-    let panierCard = document.createElement("div");
-    panierCard = document.getElementById("container_panier")
-    panierCard.classList.add("my-5", "container");
+
+     //création du formulaire de commande
+let form = document.createElement("form");
+form.classList.add("contact_form", "container", "card");
 
 panierCard.appendChild(form);
 
@@ -394,24 +393,52 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
 
                             cartTotal.appendChild(btnDeleteCam);
                             
-                            panierCard.appendChild(totalAmount);
-                                              
-                            
-                // ======= Button bas de page ======== //
-                
-                let cartReset = document.createElement("button")
-                cartReset.classList.add("card_btn_reset", "btn", "btnCard", );
-                
-                cartReset.innerText = "Vider le panier";
-                
-                panierCard.appendChild(cartReset);
-                
-                cartReset.addEventListener("click", function(e) {
-                e.preventDefault();
-                localStorage.removeItem("newProduct");
-                alert("Votre panier a bien été vidé !");
-                window.location.href = "panier.html";
-                });
+                            let iconButton = document.createElement('i');
+                            iconButton.classList.add("icon_button_delete","fas", "fa-trash-alt")    
+
+                            btnDeleteCam.appendChild(iconButton);
+
+                            let btnDelete = document.getElementsByClassName("delete_btn");
+                            for (let i = 0 ; i < btnDelete.length; i++) { 
+                                btnDelete[i].addEventListener('click' , function (e) { 
+                                    e.preventDefault();
+                                    let id = this.closest(".order_total").id;  // appel 
+                        
+                                    // Suppression de l'article du localStorage
+                                    produitInLocalStorage.splice(id, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
+                        
+                                    // Enregistrer new localStorage
+                                    localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
+                                    JSON.parse(localStorage.getItem("newProduct"));
+                        
+                                    alert("Cet article a bien été supprimé !");
+                                    window.location.href = "panier.html";   
+
+
+                            // === Méthode Filter ON ==
+
+                            // let btnDelete = document.getElementsByClassName("delete_btn");
+                            // for (let i= 0; i < btnDeleteCam)
+                                }); 
+  
+    
+};
+}}    
+                     
+            // ======  affichage prix total ======= //
+
+                        let totalAmount = document.createElement("div");
+                        totalAmount.classList.add("my-5", "container", "card");
+                        
+                        totalAmount.innerHTML = "Montant total à régler: " + prixTotal + "€";
+                        
+                        panierCard.appendChild(totalAmount);
+                                          
+                        
+            // ======= Button bas de page ======== //
+            
+            let cartReset = document.createElement("button")
+            cartReset.classList.add("card_btn_reset", "btn", "btnCard", );
             
             cartReset.innerText = "Vider le panier";
             
@@ -488,11 +515,12 @@ btnCommander.addEventListener("click", function(e) {
     listIdProduits = JSON.parse(listIdProduits);
     let listProducts = listIdProduits;
     console.log(listProducts);
+    
 
     // Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
 
     let aEnvoyer = {
-        listProducts,
+        listIdProduits,
         formulaireValues, 
     }
     localStorage.setItem("aEnvoyer", JSON.stringify(aEnvoyer));
@@ -500,43 +528,18 @@ btnCommander.addEventListener("click", function(e) {
     aEnvoyer = JSON.parse(aEnvoyer);
     console.log("A envoyer :");
     console.log(aEnvoyer);
-
-    // Récupérer l'id de commande renvoyée par l'API et stockage dans le localStorage
-    function getOrderValidationId(aEnvoyer) {
-        let orderId = produitInLocalStorage.orderId;
-        localStorage.setItem("orderValidationId", orderId);
-    }
-    console.log(orderId);
-
-    // aEnvoyer vers le serveur  avec la méthode  fetch POST
-
-    // let envoie = fetch("http://localhost:3000/api/cameras/order", {
-    //     method: "POST",
-    //     body: JSON.stringify(aEnvoyer),
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     }
-
-    // });
-
-    // // Pour voir le résultat dans la console
-
-    // envoie.then(async (response) => {
-    //     try {
-    //         console.log("response : ");
-    //         console.log(response);
-
-    //         let contenu = await response.json();
-    //         console.log(contenu);
-    //     }catch(e){
-    //         console.log(e);    
-    //     }
-
-    // })
-}
-
     
     
+// // Récupérer l'id de commande renvoyée par l'API et stockage dans le localStorage
+// function getOrderValidationId(getOrder) {
+//     let orderId = localStorage.orderId;
+//     localStorage.setItem("orderValidationId", orderId);
+// }
+// console.log(orderId);
+
+
+
+
     // aEnvoyer vers le serveur  avec la méthode  fetch POST
     
     // let envoie = fetch("http://localhost:3000/api/cameras/order", {
@@ -562,7 +565,7 @@ btnCommander.addEventListener("click", function(e) {
                         //     }
                         
                         // })
-,})
+                    },
                     
                     
                     
@@ -587,13 +590,13 @@ btnCommander.addEventListener("click", function(e) {
                                         
     async function postForm(dataToSend){
         try{ 
-           let response = fetch("http://localhost:3000/api/cameras/order", {
-                   method: "POST",
-                   body: JSON.stringify(aEnvoyer),
-                   headers: {
-                       "Content-Type": "application/json",
-                   }
-               });
+            let response = fetch("http://localhost:3000/api/cameras/order", {
+                method: "POST",
+                body: JSON.stringify(aEnvoyer),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
             if(response.ok){
                 let responseId = await response.json();
                 console.log(dataToSend.orderId);
@@ -609,7 +612,7 @@ btnCommander.addEventListener("click", function(e) {
         } 
         postForm(dataToSend);
         console.log(dataToSend);
-});}
+});
     
     
 
@@ -634,4 +637,3 @@ btnCommander.addEventListener("click", function(e) {
 
 // console.log("dataLocalStorageObjet: ");
 // console.log(dataLocalStorageObjet);
-
