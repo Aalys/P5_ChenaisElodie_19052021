@@ -483,7 +483,9 @@ btnCommander.addEventListener("click", function(e) {
     e.preventDefault();
 
     // Récupérer les données du formulaire 
-
+    if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
+        alert("Vous ne pouvez pas commander avec un panier vide !");
+    }else{
     let formulaireValues = {
         firstName: document.querySelector(".firstName").value,
         lastName: document.querySelector(".lastName").value,
@@ -565,7 +567,7 @@ btnCommander.addEventListener("click", function(e) {
                         //     }
                         
                         // })
-                    },
+                    }
                     
                     
                     
@@ -612,6 +614,7 @@ btnCommander.addEventListener("click", function(e) {
         } 
         postForm(dataToSend);
         console.log(dataToSend);
+    }
 });
     
     
