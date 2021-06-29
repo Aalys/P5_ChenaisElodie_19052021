@@ -513,107 +513,43 @@ btnCommander.addEventListener("click", function(e) {
     }
     
     localStorage.setItem("listProducts", JSON.stringify(listIdProduits));
-    listIdProduits = localStorage.getItem("listProducts");
-    listIdProduits = JSON.parse(listIdProduits);
-    let listProducts = listIdProduits;
-    console.log(listProducts);
+    // listIdProduits = JSON.parse(listIdProduits);
+    console.log(listIdProduits);
     
 
     // Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
 
-    let aEnvoyer = {
-        listIdProduits,
+    var aEnvoyer = {
         formulaireValues, 
+        listIdProduits
     }
     localStorage.setItem("aEnvoyer", JSON.stringify(aEnvoyer));
-    aEnvoyer = localStorage.getItem("aEnvoyer");
-    aEnvoyer = JSON.parse(aEnvoyer);
     console.log("A envoyer :");
     console.log(aEnvoyer);
     
+    let envoie = JSON.stringify(aEnvoyer);
     
-// // Récupérer l'id de commande renvoyée par l'API et stockage dans le localStorage
-// function getOrderValidationId(getOrder) {
-//     let orderId = localStorage.orderId;
-//     localStorage.setItem("orderValidationId", orderId);
-// }
-// console.log(orderId);
-
-
-
-
-    // aEnvoyer vers le serveur  avec la méthode  fetch POST
-    
-    // let envoie = fetch("http://localhost:3000/api/cameras/order", {
-        //     method: "POST",
-        //     body: JSON.stringify(aEnvoyer),
-        //     headers: {
-            //         "Content-Type": "application/json",
-            //     }
-            
-            // });
-            
-            // // Pour voir le résultat dans la console
-            
-            // envoie.then(async (response) => {
-                //     try {
-                    //         console.log("response : ");
-                    //         console.log(response);
-                    
-                    //         let contenu = await response.json();
-                    //         console.log(contenu);
-                    //     }catch(e){
-                        //         console.log(e);    
-                        //     }
-                        
-                        // })
-                    }
-                    
-                    
-                    
-                    //         fetch("http://localhost:3000/api/cameras/order", {
-                        //             method: "POST",
-                        //             headers: {
-                            //                 "Content-Type": "application/json"
-                            //             },
-                            //             body: JSON.stringify(aEnvoyer),
-                            //         })
-                            //             .then((response) => {
-                                //                 if (response.ok) {
-                                    //                     return response.json();
-                                    //                 }
-                                    //             })
-                                    //             .then((data) => {
-                                        //                 localStorage.setItem("orderInfos", JSON.stringify(data))
-                                        //             })
-                                        //             .catch((error) => console.log("erreur de type : ", error))
-                                        // );
                                         
-                                        
-    async function postForm(dataToSend){
-        try{ 
-            let response = fetch("http://localhost:3000/api/cameras/order", {
+    postForm(envoie);
+
+    function postForm(envoie){
+        fetch("http://localhost:3000/api/cameras/order", {
                 method: "POST",
-                body: JSON.stringify(aEnvoyer),
+                body: JSON.stringify(envoie),
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 }
+            })
+            .then(function(reponse){
+                return reponse.json()
             });
-            if(response.ok){
-                let responseId = await response.json();
-                console.log(dataToSend.orderId);
-                getOrderValidationId(responseId);
-                window.location = "validation.html";
-                localStorage.removeItem("newProduct");
-            }else {
-                console.error('Retour du serveur : ', response.status);
-            }
-        } catch (e) {
-            alert("Erreur : " + error);
-            console.log(e);
-        } 
-        postForm(dataToSend);
-        console.log(dataToSend);
+            // if(reponse.ok){
+            //     window.location = "validation.html";
+            //     localStorage.removeItem("newProduct");
+            // }else {
+            //     console.error('Retour du serveur : ', reponse.status);
+            // }
+        }
     }
 });
     

@@ -35,7 +35,7 @@ validationContainer.classList.add("py-5", "container");
                 // text
 
                 let validateText = document.createElement("div");
-                validateText.classList.add("my-4");
+                validateText.classList.add("my-4", "des");
 
                 validateText.innerText = "Vous recevrez dans quelques instants un mail de confirmation de votre commande."
 
