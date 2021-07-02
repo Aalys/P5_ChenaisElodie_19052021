@@ -512,8 +512,7 @@ btnCommander.addEventListener("click", function(e) {
         listIdProduits.push(produits);
     }
     
-    localStorage.setItem("listProducts", JSON.stringify(listIdProduits));
-    listIdProduits = JSON.stringify(listIdProduits);
+    localStorage.setItem("listIdProduits", JSON.stringify(listIdProduits));
     console.log(listIdProduits);
     
 
