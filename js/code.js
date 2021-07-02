@@ -170,7 +170,7 @@ function createCard(value){
       let linkBtnCard = document.createElement("a");
       cardBottom.classList.add("linkBtnCard");
       
-      linkBtnCard.href = `../pages/produit.html?id=${id}`;
+      linkBtnCard.href = `/pages/produit.html?id=${id}`;
 
       cardBottom.appendChild(linkBtnCard);
 
@@ -202,19 +202,3 @@ function createCard(value){
     cardBody.appendChild(cardText);
   }
 }
-
-// ================  Formulaire page panier =========== 
-
-
-// function afficheForm(){
- 
- 
-//   var form = document.createElement(form);
-//       form.method="post";
-//       form.action="index.asp?function=COUPONCODE";
-//       form.name="couponcode";
-
-//   var divParent = document.getElementById("divParent");
-//   divParent.appendChild(form)
-// }
-    
