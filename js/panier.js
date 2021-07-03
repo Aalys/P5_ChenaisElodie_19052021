@@ -483,7 +483,7 @@ btnCommander.addEventListener("click", function(e) {
     e.preventDefault();
 
     // Récupérer les données du formulaire 
-    if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
+    if(produitInLocalStorage === null || produitInLocalStorage.length === 0){
         alert("Vous ne pouvez pas commander avec un panier vide !");
     }else{
     let formulaireValues = {
