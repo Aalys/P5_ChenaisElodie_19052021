@@ -202,19 +202,3 @@ function createCard(value){
     cardBody.appendChild(cardText);
   }
 }
-
-// ================  Formulaire page panier =========== 
-
-
-// function afficheForm(){
- 
- 
-//   var form = document.createElement(form);
-//       form.method="post";
-//       form.action="index.asp?function=COUPONCODE";
-//       form.name="couponcode";
-
-//   var divParent = document.getElementById("divParent");
-//   divParent.appendChild(form)
-// }
-    
