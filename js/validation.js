@@ -1,8 +1,8 @@
-// récupération de l'id de la commande
-
-let orderId = localStorage.getItem("responseOrder");
-console.log(orderId);
-
+const contact = JSON.parse(localStorage.getItem("Contact"));
+const orderId = JSON.parse(localStorage.getItem("orderId"));
+const total = JSON.parse(localStorage.getItem("PrixTotal"));
+console.log( `Merci ${contact.firstName} ! Voici votre numéro de commande : ${orderId}, pour un montant total de : ${total} €. `);
+localStorage.clear();
 
 // ==================== Page ========================= //
 
@@ -37,7 +37,7 @@ validationContainer.classList.add("py-5", "container");
                 let validateText = document.createElement("div");
                 validateText.classList.add("my-4", "des");
 
-                validateText.innerText = "Vous recevrez dans quelques instants un mail de confirmation de votre commande."
+                validateText.innerText = "Merci " + contact.firstName + " ! Voici votre numéro de commande : " + orderId + ", pour un montant total de :" + total + "€. Vous recevrez dans quelques instants un mail de confirmation."
 
                 validateRow.appendChild(validateText);
             

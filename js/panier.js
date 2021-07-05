@@ -486,42 +486,42 @@ btnCommander.addEventListener("click", function(e) {
     if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
         alert("Vous ne pouvez pas commander avec un panier vide !");
     }else{
-    let formulaireValues = {
+    let contact = {
         firstName: document.querySelector(".firstName").value,
         lastName: document.querySelector(".lastName").value,
-        adress: document.querySelector(".address").value,
+        address: document.querySelector(".address").value,
         city: document.querySelector(".city").value,
-        mail: document.querySelector(".mail").value,
+        email: document.querySelector(".mail").value,
     }
     console.log("Formulaire :");
-    console.log(formulaireValues);
+    console.log(contact);
 
     // Mettre formulaireValues dans le localstorage 
 
-    localStorage.setItem("formulaireValues", JSON.stringify(formulaireValues));  
+    localStorage.setItem("formulaireValues", JSON.stringify(contact));  
 
     // On ne peut pas mettre simplement formulaireValues car c'est un objet et non une chaine de caractères.
     // donc il faut convertir
 
     // création tableau produits 
 
-    let listIdProduits = [];
+    let products = [];
 
     for (let i = 0; i < produitInLocalStorage.length; i++) {
         let produits = produitInLocalStorage[i].camId;
-        listIdProduits.push(produits);
+        products.push(produits);
     }
     
-    localStorage.setItem("listProducts", JSON.stringify(listIdProduits));
-    listIdProduits = JSON.stringify(listIdProduits);
-    console.log(listIdProduits);
+    localStorage.setItem("listProducts", JSON.stringify(products));
+    
+    console.log(products);
     
 
     // Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
 
     var aEnvoyer = JSON.stringify({
-        formulaireValues, 
-        listIdProduits
+        contact, 
+        products
     })
     // localStorage.setItem("aEnvoyer", JSON.stringify(aEnvoyer));
     console.log("A envoyer :");
@@ -534,23 +534,25 @@ btnCommander.addEventListener("click", function(e) {
 
     }
     function postForm(aEnvoyer){
+        //alert (aEnvoyer);
         fetch("http://localhost:3000/api/cameras/order", {
-                method: "POST",
-                body: JSON.stringify(aEnvoyer),
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                body: aEnvoyer
             })
-            // Promesse 
+            
             .then(function(reponse){
                 return reponse.json()
+            }) 
+            .then(function(reponse){
+                
+                localStorage.setItem("PrixTotal", JSON.stringify(prixTotal))
+                localStorage.setItem("Contact", JSON.stringify(reponse.contact))
+                localStorage.setItem("orderId", JSON.stringify(reponse.orderId))
+                window.location.href = "validation.html";
             })
-            // if(reponse.ok){
-            //     window.location = "validation.html";
-            //     localStorage.removeItem("newProduct");
-            // }else {
-            //     console.error('Retour du serveur : ', reponse.status);
-            // }
         };
 });
     

@@ -8,7 +8,7 @@ fetch("http://localhost:3000/api/cameras")
       }
     })
     .then(function(value) {
-      console.log(value);
+      
       createCard(value);
     }
     )
@@ -112,7 +112,7 @@ function createCard(value){
 
     listOfProducts.appendChild(newCard);
     
-    console.log(newCard);
+    
 
     // // Bloc id cachée
 
@@ -170,7 +170,7 @@ function createCard(value){
       let linkBtnCard = document.createElement("a");
       cardBottom.classList.add("linkBtnCard");
       
-      linkBtnCard.href = `../pages/produit.html?id=${id}`;
+      linkBtnCard.href = `pages/produit.html?id=${id}`;
 
       cardBottom.appendChild(linkBtnCard);
 
