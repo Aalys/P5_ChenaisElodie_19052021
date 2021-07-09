@@ -392,20 +392,21 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
                             btnDeleteCam.title = 'Supprimer cet article ?';
 
                             cartTotal.appendChild(btnDeleteCam);
+
                             
                             let iconButton = document.createElement('i');
                             iconButton.classList.add("icon_button_delete","fas", "fa-trash-alt")    
 
                             btnDeleteCam.appendChild(iconButton);
 
-                            let btnDelete = document.getElementsByClassName("delete_btn");
-                            for (let i = 0 ; i < btnDelete.length; i++) { 
-                                btnDelete[i].addEventListener('click' , function (e) { 
+
+                            // button suppression 
+
+                                btnDeleteCam.addEventListener('click' , function (e) { 
                                     e.preventDefault();
-                                    let id = this.closest(".order_total").id;  // appel 
                         
                                     // Suppression de l'article du localStorage
-                                    produitInLocalStorage.splice(id, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
+                                    produitInLocalStorage[i].splice(camId, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
                         
                                     // Enregistrer new localStorage
                                     localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
@@ -419,10 +420,10 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
 
                             // let btnDelete = document.getElementsByClassName("delete_btn");
                             // for (let i= 0; i < btnDeleteCam)
-                                }); 
+                                
   
     
-    };
+    });
 }}    
                      
             // ======  affichage prix total ======= //
@@ -478,7 +479,7 @@ let btnCommander = document.querySelector(".cart_button");
 // addeventlistener btnCommander
 
 btnCommander.addEventListener("click", function(e) {   
-    // if(validation(firstName.value) && validation(lastName.value) && validationAddresse(address.value) && validation(city.value) && validationMail(mail.value)){
+    if(validation(firstName.value) && validation(lastName.value) && validationAddresse(address.value) && validation(city.value) && validationMail(mail.value)){
     // si valide
     e.preventDefault();
 
@@ -516,18 +517,17 @@ btnCommander.addEventListener("click", function(e) {
     
     console.log(products);
     
+    // Fichier product est un tableau, setItem -> envoyer tableau en format tableau dans le localstorage
+
 
     // Créer objet pour mettre les values formulaire + produit du panier à envoyer au serveur
 
     var aEnvoyer = JSON.stringify({
         contact, 
         products
-    })
-    // localStorage.setItem("aEnvoyer", JSON.stringify(aEnvoyer));
+    })   
     console.log("A envoyer :");
     console.log(aEnvoyer);
-    
-    // var envoie = JSON.stringify(aEnvoyer);
     
                                         
     postForm(aEnvoyer);
@@ -554,6 +554,9 @@ btnCommander.addEventListener("click", function(e) {
                 window.location.href = "validation.html";
             })
         };
+    }else{
+        alert("Formulaire incorrect");
+    }    
 });
     
     

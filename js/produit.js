@@ -157,7 +157,7 @@ let getCameras = async function(){
 
             let optionProduit = {
                 camName : value.name,
-                camId : value._id,
+                camId : value._id, 
                 camDesc : value.description,
                 camPrice : value.price / 100,
                 camLenses: select.value,
