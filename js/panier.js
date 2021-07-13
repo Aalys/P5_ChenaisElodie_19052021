@@ -242,16 +242,9 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
     panierCard.appendChild(noCart);
     
     noCart.textContent = "Votre panier est vide !";
-    // let panier = async function(){
-    //     let response = await fetch('http://localhost:3000/api/cameras/' + id);
-    //     if (response.ok) {
-    //         let value = await response.json();
 }else{
     for(i = 0; i < produitInLocalStorage.length; i++) {
         console.log("nombre de produits:" + produitInLocalStorage.length);
-
-
-        // ==== Formulaire ====
             
 
         // div extérieure 
@@ -405,7 +398,7 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
                                 btnDeleteCam.addEventListener('click' , function (e) { 
                                     e.preventDefault();
 
-                                        let id = produitInLocalStorage.camId;
+                                        let id =  produitInLocalStorage.camId;
                                         // if (produitInLocalStorage[i] === id) {
 
                                             // Suppression de l'article du localStorage
@@ -556,7 +549,24 @@ btnCommander.addEventListener("click", function(e) {
     }    
 });
     
-    
+
+// Création affichage nombre d'article à côté du bouton panier 
+
+if (produitInLocalStorage){
+    for (p = 0; p < produitInLocalStorage.length; p++){
+
+        let numArticleCart = produitInLocalStorage.length;
+
+        let numberCart = document.createElement("div");
+        numberCart = document.getElementById("number_cart");
+        numberCart.classList.add("border", "rounded-circle");
+
+        numberCart.innerText = numArticleCart; 
+    }
+}else{
+        numArticleCart = 0;
+};
+
 
 
 

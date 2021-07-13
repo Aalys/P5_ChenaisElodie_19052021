@@ -17,6 +17,9 @@ fetch("http://localhost:3000/api/cameras")
   });
 
 
+  
+
+
 // ================= TEST 1 - liste produits =================
 
 
@@ -97,7 +100,7 @@ fetch("http://localhost:3000/api/cameras")
 
 
 function createCard(value){
-  for (i = 0; i < value.length; i++){ // valeur initiale, condition, incrémentation 
+  for (i = 0; i < value.length; i++){ // valeur initiale, condition, incrémentation     Length indique le nombre d'éléments présents dans le tableau
     
     let id = value[i]._id;
 
@@ -202,3 +205,21 @@ function createCard(value){
     cardBody.appendChild(cardText);
   }
 }
+
+let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
+console.log(produitInLocalStorage);
+
+if (produitInLocalStorage){
+    for (p = 0; p < produitInLocalStorage.length; p++){
+
+        let numArticleCart = produitInLocalStorage.length;
+
+        let numberCart = document.createElement("div");
+        numberCart = document.getElementById("number_cart");
+        numberCart.classList.add("border", "rounded-circle");
+
+        numberCart.innerText = numArticleCart; 
+    }
+}else{
+        numArticleCart = 0;
+};

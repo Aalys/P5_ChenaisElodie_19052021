@@ -4,6 +4,8 @@ const total = JSON.parse(localStorage.getItem("PrixTotal"));
 console.log( `Merci ${contact.firstName} ! Voici votre numéro de commande : ${orderId}, pour un montant total de : ${total} €. `);
 localStorage.clear();
 
+
+
 // ==================== Page ========================= //
 
 

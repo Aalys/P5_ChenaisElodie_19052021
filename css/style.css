@@ -4,6 +4,10 @@ body{
 .mail{
     text-decoration: none;  
 }
+#number_cart{
+    color: #ffffff;
+    padding: 4px;
+}
 /* ============= Page index =============== */ 
 
 .card{

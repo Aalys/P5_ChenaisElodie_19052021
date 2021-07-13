@@ -99,12 +99,12 @@ let getCameras = async function(){
 
             // Choix option dans divOption
             
-            let  formDiv = document.createElement('div');
-            formDiv.className = 'lenses_choice';
+            let  formDiv = document.createElement("div");
+            formDiv.className = "lenses_choice";
 
             divOption.appendChild(formDiv);
 
-                let label = document.createElement('label');
+                let label = document.createElement("label");
                 label.textContent = "Choisissez la lentille de votre objectif : ";
                 label.setAttribute('for', "Choix de lentilles de " + value.name);
 
@@ -112,10 +112,10 @@ let getCameras = async function(){
 
                 // Selection du choix de lentilles
 
-                let select = document.createElement('select');
+                let select = document.createElement("select");
                 select.classList.add("text-center");
-                select.setAttribute('name', "Choix de lentilles de " + value.name);
-                select.setAttribute('id', "select_1 ");
+                select.setAttribute("name", "Choix de lentilles de " + value.name);
+                select.setAttribute("id", "select_1 ");
                 
                 formDiv.appendChild(select);
 
@@ -140,7 +140,7 @@ let getCameras = async function(){
         // boucle afin d'afficher dans le select lenses en fonction du nombre d'entrées dans le tableau 
 
         for (i = 0; i < lenses.length; i++) {   
-            let selectOption = document.createElement('option');
+            let selectOption = document.createElement("option");
             selectOption.textContent = lenses[i];
             selectOption.setAttribute("value", lenses[i]);
 
@@ -176,6 +176,7 @@ let getCameras = async function(){
         let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
         
         let camLenses = select.value;
+        
         // Si il y a déjà des produits dans le localstorage
         if(produitInLocalStorage){     // vérifie que la clé n'existe pas déjà 
           produitInLocalStorage.push(optionProduit);
@@ -211,3 +212,36 @@ let getCameras = async function(){
 // Appel de la fonction
 getCameras();
 
+let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
+console.log(produitInLocalStorage);
+
+if (produitInLocalStorage){
+    for (p = 0; p < produitInLocalStorage.length; p++){
+
+        let numArticleCart = produitInLocalStorage.length;
+
+        let numberCart = document.createElement("div");
+        numberCart = document.getElementById("number_cart");
+        numberCart.classList.add("border", "rounded-circle");
+
+        numberCart.innerText = numArticleCart; 
+    }
+}else{
+        numArticleCart = 0;
+};
+
+
+if (produitInLocalStorage){
+    for (p = 0; p < produitInLocalStorage.length; p++){
+
+        let numArticleCart = produitInLocalStorage.length;
+
+        let numberCart = document.createElement("div");
+        numberCart = document.getElementById("number_cart");
+        numberCart.classList.add("border", "rounded-circle");
+
+        numberCart.innerText = numArticleCart; 
+    }
+}else{
+        numArticleCart = 0;
+};
