@@ -379,6 +379,19 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
 
                             cartTotal.appendChild(cartTotalPrice);
 
+                            
+                            // création bouton suppression d'un article
+                            var btnDeleteCam = document.createElement('button');
+                            btnDeleteCam.classList.add("delete_btn");
+                            btnDeleteCam.title = 'Supprimer cet article ?';
+                            
+                            cartTotal.appendChild(btnDeleteCam);
+                            
+                            
+                            let iconButton = document.createElement('i');
+                            iconButton.classList.add("icon_button_delete","fas", "fa-trash-alt")    
+                            
+                            btnDeleteCam.appendChild(iconButton);
                             // Input invisible pour récupérer id pour delete
 
                             let inputBtnDelete = document.createElement("input");
@@ -386,49 +399,36 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
                             inputBtnDelete.value = produitInLocalStorage[i].camId;
 
                             
-                            cartTotal.appendChild(inputBtnDelete);
+                            btnDeleteCam.appendChild(inputBtnDelete);
                             
 
-                            // création bouton suppression d'un article
-                            let btnDeleteCam = document.createElement('button');
-                            btnDeleteCam.classList.add("delete_btn");
-                            btnDeleteCam.title = 'Supprimer cet article ?';
-
-                            cartTotal.appendChild(btnDeleteCam);
+                            console.log(btnDeleteCam.children);
 
                             
-                            let iconButton = document.createElement('i');
-                            iconButton.classList.add("icon_button_delete","fas", "fa-trash-alt")    
-
-                            btnDeleteCam.appendChild(iconButton);
-
-                            console.log(btnDeleteCam.parentElement.children[1].value);
-
-
-                            // button suppression 
-
-                                btnDeleteCam.addEventListener('click' , function (e) { 
-                                    e.preventDefault();
-                                        let id = btnDeleteCam.parentElement.children[1].value;
-                                        for (i = 0; i < produitInLocalStorage.length; i++){
-                                            if (produitInLocalStorage[i].camId = id){
-
-                                                // Suppression de l'article du localStorage
-                                                produitInLocalStorage.splice(id, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
+                        }
+    
+                        // button suppression 
+                    
+                            btnDeleteCam.addEventListener('click' , function (e) { 
+                                e.preventDefault();
+                                    let id = btnDeleteCam.children[1].value;
+                                    for (i = 0; i < produitInLocalStorage.length; i++){
+                                        if (produitInLocalStorage.camId = id){
+                    
+                                            // Suppression de l'article du localStorage
+                                            produitInLocalStorage.splice(id, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
+                                            
+                                            // // Enregistrer new localStorage
+                                            localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
+                                            JSON.parse(localStorage.getItem("newProduct"));
                                                 
-                                                // Enregistrer new localStorage
-                                                localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
-                                                JSON.parse(localStorage.getItem("newProduct"));
-                                                    
-                                                // };
-                                                alert("Cet article a bien été supprimé !");
-                                                window.location.href = "panier.html";   
-                                            }
-                                        };
-
-                                    });
-                                
-                            }
+                                            // };
+                                            alert("Cet article a bien été supprimé !");
+                                            window.location.href = "panier.html";   
+                                        }
+                                    };
+                    
+                                });
 } 
                      
             // ======  affichage prix total ======= //
