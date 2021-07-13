@@ -1,7 +1,9 @@
 body{
     background-color: #f2e8f0;
 }
-
+.mail{
+    text-decoration: none;  
+}
 /* ============= Page index =============== */ 
 
 .card{
@@ -88,4 +90,11 @@ body{
 }
 .contact_form{
     margin-bottom: 30px;
+}
+
+label
+{
+	display: block;
+	width: 150px;
+	float: left;
 }

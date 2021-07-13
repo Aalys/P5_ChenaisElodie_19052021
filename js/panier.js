@@ -307,19 +307,20 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
                                 panierUl.appendChild(panierLi);
 
 
-                                    // // Div image dans Li
+                                    // Div image dans Li
 
-                                    // let panierLiImg = document.createElement("div");
-                                    // panierLiImg.classList.add("cart_item_image");
+                                    let panierLiImg = document.createElement("div");
+                                    panierLiImg.classList.add("cart_item_image");
 
-                                    // panierLi.appendChild(panierLiImg);
+                                    panierLi.appendChild(panierLiImg);
 
-                                    //     // img dans div panierLiImg
+                                        // img dans div panierLiImg
 
-                                    //     let LiImg = document.createElement("img");
-                                    //     LiImg.src = produitInLocalStorage[i].imageUrl;
+                                        let LiImg = document.createElement("img");
+                                        LiImg.classList.add("img-thumbnail", "w-25", "my-4");
+                                        LiImg.src = produitInLocalStorage[i].camPhoto;
 
-                                    //     panierLiImg.appendChild(LiImg);
+                                        panierLiImg.appendChild(LiImg);
 
                                     // div mise en page card dans panierLi
 
@@ -373,7 +374,6 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
 
                     let cartTotal = document.createElement("div");
                     cartTotal.classList.add("order_total");
-                    // cartTotal.id = i++;
 
                     panierListContainer.appendChild(cartTotal);
 
@@ -404,27 +404,24 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
 
                                 btnDeleteCam.addEventListener('click' , function (e) { 
                                     e.preventDefault();
-                        
-                                    // Suppression de l'article du localStorage
-                                    produitInLocalStorage[i].splice(camId, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
-                        
-                                    // Enregistrer new localStorage
-                                    localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
-                                    JSON.parse(localStorage.getItem("newProduct"));
-                        
-                                    alert("Cet article a bien été supprimé !");
-                                    window.location.href = "panier.html";   
 
+                                        let id = produitInLocalStorage.camId;
+                                        // if (produitInLocalStorage[i] === id) {
 
-                            // === Méthode Filter ON ==
-
-                            // let btnDelete = document.getElementsByClassName("delete_btn");
-                            // for (let i= 0; i < btnDeleteCam)
+                                            // Suppression de l'article du localStorage
+                                            produitInLocalStorage.splice(id, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
+                                            
+                                            // Enregistrer new localStorage
+                                            localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
+                                            JSON.parse(localStorage.getItem("newProduct"));
+                                            
+                                        // };
+                                        alert("Cet article a bien été supprimé !");
+                                        window.location.href = "panier.html";   
+                                    });
                                 
-  
-    
-    });
-}}    
+                            }
+} 
                      
             // ======  affichage prix total ======= //
 
