@@ -379,6 +379,16 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
 
                             cartTotal.appendChild(cartTotalPrice);
 
+                            // Input invisible pour récupérer id pour delete
+
+                            let inputBtnDelete = document.createElement("input");
+                            inputBtnDelete.setAttribute("type", "hidden");
+                            inputBtnDelete.value = produitInLocalStorage[i].camId;
+
+                            
+                            cartTotal.appendChild(inputBtnDelete);
+                            
+
                             // création bouton suppression d'un article
                             let btnDeleteCam = document.createElement('button');
                             btnDeleteCam.classList.add("delete_btn");
@@ -392,25 +402,30 @@ if(produitInLocalStorage == null || produitInLocalStorage.length === 0){
 
                             btnDeleteCam.appendChild(iconButton);
 
+                            console.log(btnDeleteCam.parentElement.children[1].value);
+
 
                             // button suppression 
 
                                 btnDeleteCam.addEventListener('click' , function (e) { 
                                     e.preventDefault();
+                                        let id = btnDeleteCam.parentElement.children[1].value;
+                                        for (i = 0; i < produitInLocalStorage.length; i++){
+                                            if (produitInLocalStorage[i].camId = id){
 
-                                        let id =  produitInLocalStorage.camId;
-                                        // if (produitInLocalStorage[i] === id) {
+                                                // Suppression de l'article du localStorage
+                                                produitInLocalStorage.splice(id, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
+                                                
+                                                // Enregistrer new localStorage
+                                                localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
+                                                JSON.parse(localStorage.getItem("newProduct"));
+                                                    
+                                                // };
+                                                alert("Cet article a bien été supprimé !");
+                                                window.location.href = "panier.html";   
+                                            }
+                                        };
 
-                                            // Suppression de l'article du localStorage
-                                            produitInLocalStorage.splice(id, 1);  // splice modifie le tableau en retirant.ajoutant des éléments
-                                            
-                                            // Enregistrer new localStorage
-                                            localStorage.setItem("newProduct", JSON.stringify(produitInLocalStorage));
-                                            JSON.parse(localStorage.getItem("newProduct"));
-                                            
-                                        // };
-                                        alert("Cet article a bien été supprimé !");
-                                        window.location.href = "panier.html";   
                                     });
                                 
                             }

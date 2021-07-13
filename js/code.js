@@ -210,16 +210,16 @@ let produitInLocalStorage = JSON.parse(localStorage.getItem("newProduct"));
 console.log(produitInLocalStorage);
 
 if (produitInLocalStorage){
-    for (p = 0; p < produitInLocalStorage.length; p++){
+  for (p = 0; p < produitInLocalStorage.length; p++){
 
-        let numArticleCart = produitInLocalStorage.length;
+      let numArticleCart = produitInLocalStorage.length;
 
-        let numberCart = document.createElement("div");
-        numberCart = document.getElementById("number_cart");
-        numberCart.classList.add("border", "rounded-circle");
+      let numberCart = document.createElement("div");
+      numberCart = document.getElementById("number_cart");
+      numberCart.classList.add("border", "rounded-circle");
 
-        numberCart.innerText = numArticleCart; 
-    }
+      numberCart.innerText = numArticleCart; 
+  }
 }else{
-        numArticleCart = 0;
+      numArticleCart = 0;
 };
